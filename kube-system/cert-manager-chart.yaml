@@ -1,0 +1,22 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: kube-system
+  annotations:
+    flux.weave.works/automated: "false"
+    flux.weave.works/tag.chart-image: semver:~0
+spec:
+  releaseName: cert-manager
+  chart:
+    repository: https://charts.jetstack.io/
+    name: cert-manager
+    version: v0.10.0-alpha.0
+  values:
+    extraArgs:
+    - --dns01-recursive-nameservers=1.1.1.1:53
+    - --dns01-recursive-nameservers-only
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
