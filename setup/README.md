@@ -5,7 +5,7 @@
 on the k3s 'master' k3s node, we tell flannel to use eth0:
 
 ```shell
-k3sup install --ip 10.2.0.30 --k3s-extra-args '--no-deploy servicelb' --user ubuntu
+k3sup install --ip 10.2.0.30 --k3s-extra-args '--no-deploy servicelb --no-deploy traefik' --user ubuntu
 ```
 
 ## k3s worker nodes installation
@@ -27,6 +27,20 @@ for node in $(echo "pi4-a pi4-b"); do
   ssh pi@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://10.2.0.30:6443 K3S_TOKEN=$(ssh ubuntu@10.2.0.30 'sudo cat /var/lib/rancher/k3s/server/node-token') sh -s - --node-taint arm=true:NoExecute"
 done
 ```
+
+## k3s teardown (uninstall)
+
+```shell
+for node in $(echo "pi4-b pi4-a"); do
+  ssh pi@"$node" "k3s-agent-uninstall.sh"
+done
+for node in $(echo "10.2.0.32 10.2.0.31"); do
+  ssh ubuntu@"$node" "k3s-agent-uninstall.sh"
+done
+ssh ubuntu@10.2.0.30 "/usr/local/bin/k3s-uninstall.sh"
+```
+
+k3s-agent-uninstall.sh
 
 ## bootstrapping
 
