@@ -49,4 +49,3 @@ spec:
       operator: "Exists"
   valueFileSecrets:
   - name: "traefik-helm-values"
-

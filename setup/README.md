@@ -81,7 +81,7 @@ If this is brand-new, get the new public cert via,
 kubeseal --fetch-cert \
 --controller-namespace=kube-system \
 --controller-name=sealed-secrets \
->! pub-cert.pem
+> $(git rev-parse --show-toplevel)/pub-cert.pem
 ```
 
 ### restoring existing key
