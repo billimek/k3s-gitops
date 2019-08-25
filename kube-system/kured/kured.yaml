@@ -17,4 +17,4 @@ spec:
       repository: weaveworks/kured
       tag: 1.2.0
   valueFileSecrets:
-  - name: "kured-values"
+  - name: "kured-helm-values"

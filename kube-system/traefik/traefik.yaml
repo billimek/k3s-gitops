@@ -48,5 +48,5 @@ spec:
     - key: "arm"
       operator: "Exists"
   valueFileSecrets:
-  - name: "traefik-values"
+  - name: "traefik-helm-values"
 
