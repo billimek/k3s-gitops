@@ -5,6 +5,6 @@ dashboard:
        $TRAEFIK_AUTH
   ingress:
     tls:
-      - secretName: acme-crt-secret
-        hosts:
-          - t.$DOMAIN
+      - hosts:
+        - t.$DOMAIN
+        secretName: acme-crt-secret
