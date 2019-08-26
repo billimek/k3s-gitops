@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: "influxdb"
-      tag: "1.7.7"
+      tag: "1.7.6"
     service:
       type: ClusterIP
       # loadBalancerIP: 10.2.0.151
@@ -34,8 +34,8 @@ spec:
     config:
       opentsdb:
         enabled: true
-    # tolerations:
-    # - key: "arm"
-    #   operator: "Exists"
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
   valueFileSecrets:
   - name: "influxdb-helm-values"
