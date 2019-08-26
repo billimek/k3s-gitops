@@ -15,10 +15,7 @@ spec:
     version: 6.7.3
   values:
     prometheusOperator:
-      createCustomResource: true
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
+      createCustomResource: false
     alertmanager:
       alertmanagerSpec:
         storage:
@@ -110,10 +107,6 @@ spec:
           url: https://grafana.net
     kubeEtcd:
       enabled: false
-    kube-state-metrics:
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
     prometheus-node-exporter:
       tolerations:
       - key: "arm"
