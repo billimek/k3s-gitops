@@ -37,5 +37,3 @@ spec:
     tolerations:
     - key: "arm"
       operator: "Exists"
-  # valueFileSecrets:
-  # - name: "influxdb-helm-values"
