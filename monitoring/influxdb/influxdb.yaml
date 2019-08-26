@@ -31,11 +31,11 @@ spec:
       limits:
         memory: 4Gi
         cpu: 4
-    # config:
-    #   opentsdb:
-    #     enabled: true
+    config:
+      opentsdb:
+        enabled: true
     tolerations:
     - key: "arm"
       operator: "Exists"
-  valueFileSecrets:
-  - name: "influxdb-helm-values"
+  # valueFileSecrets:
+  # - name: "influxdb-helm-values"
