@@ -25,9 +25,9 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-        tolerations:
-        - key: "arm"
-          operator: "Exists"
+        # tolerations:
+        # - key: "arm"
+        #   operator: "Exists"
       ingress:
         enabled: true
         annotations:
@@ -132,9 +132,9 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
-        tolerations:
-        - key: "arm"
-          operator: "Exists"
+        # tolerations:
+        # - key: "arm"
+        #   operator: "Exists"
         additionalScrapeConfigs:
         - job_name: 'netdata-scrape'
           metrics_path: '/api/v1/allmetrics'
