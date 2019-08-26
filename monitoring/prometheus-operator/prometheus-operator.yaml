@@ -1,0 +1,176 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  namespace: monitoring
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.grafana: semver:~6
+spec:
+  releaseName: prometheus-operator
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: prometheus-operator
+    version: 6.7.3
+  values:
+    prometheusOperator:
+      createCustomResource: false
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+    alertmanager:
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: nfs-client
+              resources:
+                requests:
+                  storage: 10Gi
+        tolerations:
+        - key: "arm"
+          operator: "Exists"
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          ingress.kubernetes.io/auth-type: "basic"
+          ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
+          ingress.kubernetes.io/auth-trust-headers: "true"
+    grafana:
+      image:
+        repository: grafana/grafana
+        tag: 6.3.3
+      # deploymentStrategy:
+      #   type: Recreate
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+      persistence:
+        enabled: true
+        storageClassName: "nfs-client"
+        accessModes:
+        - ReadWriteOnce
+        size: 10Gi
+      env:
+        GF_EXPLORE_ENABLED: true
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+      plugins:
+        - natel-discrete-panel
+      additionalDataSources:
+      - name: loki
+        type: loki
+        access: proxy
+        url: http://loki.logs.svc.cluster.local:3100
+      - name: influxdb
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: telegraf
+      - name: cable_modem_stats
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: cable_modem_stats
+      - name: comcast
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: comcast
+      - name: home_assistant
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: home_assistant
+      - name: speedtests
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: speedtests
+      - name: uptimerobot
+        type: influxdb
+        access: proxy
+        url: http://influxdb:8086
+        database: uptimerobot
+      grafana.ini:
+        paths:
+          data: /var/lib/grafana/data
+          logs: /var/log/grafana
+          plugins: /var/lib/grafana/plugins
+          provisioning: /etc/grafana/provisioning
+        analytics:
+          check_for_updates: true
+        log:
+          mode: console
+        grafana_net:
+          url: https://grafana.net
+    kubeEtcd:
+      enabled: false
+    kube-state-metrics:
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+    prometheus-node-exporter:
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+    prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          ingress.kubernetes.io/auth-type: "forward"
+          ingress.kubernetes.io/auth-url: "http://auth0-forwardauth.kube-system.svc.cluster.local/authorize"
+          ingress.kubernetes.io/auth-trust-headers: "true"
+      prometheusSpec:
+#        image:
+#          repository: quay.io/prometheus/prometheus
+#          tag: v2.9.1
+        retention: 30d
+        enableAdminAPI: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: nfs-client
+              resources:
+                requests:
+                  storage: 100Gi
+        tolerations:
+        - key: "arm"
+          operator: "Exists"
+        additionalScrapeConfigs:
+        - job_name: 'netdata-scrape'
+          metrics_path: '/api/v1/allmetrics'
+          params:
+              # format: prometheus | prometheus_all_hosts
+              # You can use `prometheus_all_hosts` if you want Prometheus to set the `instance` to your hostname instead of IP 
+            format: [prometheus]
+          honor_labels: true
+          static_configs:
+          - targets:
+            - proxmox:19999
+            - proxmox-b:19999
+            - proxmox-c:19999
+            - lb:19999
+            - pihole:19999
+            - k8s-master-a:19999
+            - k8s-master-b:19999
+            - k8s-master-c:19999
+            - k8s-1:19999
+            - k8s-2:19999
+            - k8s-3:19999
+            - k8s-4:19999
+        - job_name: 'wmi-exporter-scrape'
+          metrics_path: '/metrics'
+          params:
+            format: [prometheus]
+          honor_labels: true
+          static_configs:
+          - targets:
+            - nvr:9182
+  valueFileSecrets:
+  - name: "prometheus-operator-helm-values"

@@ -1,0 +1,34 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: chronograf
+  namespace: monitoring
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: semver:~1.7
+spec:
+  releaseName: chronograf
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: chronograf
+    version: 1.1.0
+  values:
+    image:
+      repository: "quay.io/influxdb/chronograf"
+      tag: "1.7.12"
+    persistence:
+      enabled: true
+      storageClass: nfs-client
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+        ingress.kubernetes.io/auth-type: "basic"
+        ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
+        ingress.kubernetes.io/auth-trust-headers: "true"
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+  valueFileSecrets:
+  - name: "chronograf-helm-values"

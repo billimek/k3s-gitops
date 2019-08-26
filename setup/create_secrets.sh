@@ -41,3 +41,7 @@ kubectl create secret generic cloudflare-api-key --from-literal=api-key="$CF_API
 ####################
 NS=kube-system kseal "$REPO_ROOT/kube-system/traefik/traefik-helm-values.txt" > "$REPO_ROOT/kube-system/traefik/traefik-helm-values.yaml"
 NS=kube-system kseal "$REPO_ROOT/kube-system/kured/kured-helm-values.txt" > "$REPO_ROOT/kube-system/kured/kured-helm-values.yaml"
+
+NS=monitoring kseal "$REPO_ROOT/monitoring/chronograf/chronograf-helm-values.txt" > "$REPO_ROOT/monitoring/chronograf/chronograf-helm-values.yaml"
+NS=monitoring kseal "$REPO_ROOT/monitoring/influxdb/influxdb-helm-values.txt" > "$REPO_ROOT/monitoring/influxdb/influxdb-helm-values.yaml"
+NS=monitoring kseal "$REPO_ROOT/monitoring/prometheus-operator/prometheus-operator-helm-values.txt" > "$REPO_ROOT/monitoring/prometheus-operator/prometheus-operator-helm-values.yaml"
