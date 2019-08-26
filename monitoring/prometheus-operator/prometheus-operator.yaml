@@ -32,9 +32,9 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "traefik"
-          ingress.kubernetes.io/auth-type: "basic"
-          ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
-          ingress.kubernetes.io/auth-trust-headers: "true"
+          # ingress.kubernetes.io/auth-type: "basic"
+          # ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
+          # ingress.kubernetes.io/auth-trust-headers: "true"
     grafana:
       image:
         repository: grafana/grafana
@@ -116,9 +116,9 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "traefik"
-          ingress.kubernetes.io/auth-type: "forward"
-          ingress.kubernetes.io/auth-url: "http://auth0-forwardauth.kube-system.svc.cluster.local/authorize"
-          ingress.kubernetes.io/auth-trust-headers: "true"
+          # ingress.kubernetes.io/auth-type: "basic"
+          # ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
+          # ingress.kubernetes.io/auth-trust-headers: "true"
       prometheusSpec:
 #        image:
 #          repository: quay.io/prometheus/prometheus
