@@ -34,6 +34,7 @@ kapply "$REPO_ROOT"/kube-system/cert-manager/cert-manager-letsencrypt.txt
 kubectl create secret generic fluxcloud --from-literal=slack_url="$SLACK_WEBHOOK_URL" --namespace flux --dry-run -o json | kubeseal --format=yaml --cert="$REPO_ROOT/pub-cert.pem" > "$REPO_ROOT/kube-system/fluxcloud/fluxcloud-secret.yaml"
 kubectl create secret generic traefik-basic-auth-jeff --from-literal=auth="$JEFF_AUTH" --namespace kube-system --dry-run -o json | kubeseal --format=yaml --cert="$REPO_ROOT/pub-cert.pem" > "$REPO_ROOT/kube-system/traefik/traefik-basic-auth-jeff-kube-system.yaml"
 kubectl create secret generic traefik-basic-auth-jeff --from-literal=auth="$JEFF_AUTH" --dry-run -o json | kubeseal --format=yaml --cert="$REPO_ROOT/pub-cert.pem" > "$REPO_ROOT/kube-system/traefik/traefik-basic-auth-jeff.yaml"
+kubectl create secret generic traefik-basic-auth-jeff --from-literal=auth="$JEFF_AUTH" --namespace monitoring --dry-run -o json | kubeseal --format=yaml --cert="$REPO_ROOT/pub-cert.pem" > "$REPO_ROOT/kube-system/traefik/traefik-basic-auth-jeff-monitoring.yaml"
 kubectl create secret generic cloudflare-api-key --from-literal=api-key="$CF_API_KEY" --namespace kube-system --dry-run -o json | kubeseal --format=yaml --cert="$REPO_ROOT/pub-cert.pem" > "$REPO_ROOT/kube-system/cert-manager/cert-manager-cloudflare-api-key.yaml"
 
 ####################
