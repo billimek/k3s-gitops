@@ -20,7 +20,7 @@ spec:
     serviceType: LoadBalancer
     externalTrafficPolicy: Local
     loadBalancerIP: 10.2.0.210
-    replicas: 2
+    replicas: 1
     debug:
       enabled: true
     rbac:
@@ -36,9 +36,9 @@ spec:
       enabled: true
       statistics:
         recentErrors: 25
-    # deployment:
-    #   hostPort:
-    #     dashboardEnabled: true
+    deployment:
+      hostPort:
+        dashboardEnabled: true
     metrics:
       prometheus:
         enabled: true
