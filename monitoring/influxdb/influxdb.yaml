@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: 'regexp:^(1\.[0-9]+\.[0-9]+-alpine)$'
+    flux.weave.works/tag.chart-image: 'regexp:^(1\.[0-9]+\.[0-9]+)$'
 spec:
   releaseName: influxdb
   chart:
@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: "influxdb"
-      tag: "1.7.7-alpine"
+      tag: "1.7.7"
     service:
       type: ClusterIP
       # loadBalancerIP: 10.2.0.151
