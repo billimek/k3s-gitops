@@ -34,5 +34,8 @@ spec:
     config:
       opentsdb:
         enabled: true
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
   valueFileSecrets:
   - name: "influxdb-helm-values"
