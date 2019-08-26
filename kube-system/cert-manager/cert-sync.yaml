@@ -65,7 +65,7 @@ spec:
               if [ "$ns" != "kube-system" ]; then
                 echo "$(date '+%Y-%m-%d %H:%M:%S') namespace - $ns"
                 kubectl -n "kube-system" get secret "acme-crt-secret" -o yaml --export | \
-                  kubectl -n "$ns" apply -f -
+                  kubectl -n "$ns" apply --validate=false -f -
               fi
             done
           done
@@ -84,7 +84,7 @@ spec:
               for ns in $(kubectl get ns --field-selector="status.phase==Active" --no-headers -o "custom-columns=:metadata.name"); do
                 if [ "$ns" != "kube-system" ]; then
                   echo "$(date '+%Y-%m-%d %H:%M:%S') namespace - $ns"
-                  echo "$export" | kubectl -n "$ns" apply -f -
+                  echo "$export" | kubectl -n "$ns" apply --validate=false -f -
                 fi
               done
             done
