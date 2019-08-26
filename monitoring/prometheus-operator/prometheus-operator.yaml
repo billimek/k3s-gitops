@@ -41,9 +41,9 @@ spec:
         tag: 6.3.3
       # deploymentStrategy:
       #   type: Recreate
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
+      # tolerations:
+      # - key: "arm"
+      #   operator: "Exists"
       persistence:
         enabled: true
         storageClassName: "nfs-client"
