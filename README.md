@@ -7,6 +7,6 @@ See [setup/README.md](setup/README.md) for more details.
 ## Workloads (by namespace)
 
 * [flux](flux/)
-* [kube-system](kube_system/)
+* [kube-system](kube-system/)
 * [monitoring](monitoring/)
 * [logs](logs/)
