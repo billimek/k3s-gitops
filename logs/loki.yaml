@@ -1,0 +1,40 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: logs
+  annotations:
+    flux.weave.works/ignore: "false"
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.loki: semver:~v0
+    flux.weave.works/tag.promtail: semver:~v0
+spec:
+  releaseName: loki
+  chart:
+    repository: https://grafana.github.io/loki/charts
+    name: loki-stack
+    version: 0.16.0
+  values:
+    loki:
+      image:
+        repository: grafana/loki
+        tag: v0.3.0
+      persistence:
+        enabled: true
+        size: 50Gi
+        storageClassName: nfs-client
+      serviceMonitor:
+        enabled: true
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+    promtail:
+      image:
+        repository: grafana/promtail
+        tag: v0.3.0 
+      serviceMonitor:
+        enabled: true
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
