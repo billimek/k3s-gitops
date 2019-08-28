@@ -24,7 +24,7 @@ metadata:
   annotations:
     flux.weave.works/automated: "true"
 spec:
-  releaseName: metrics-server-arm
+  releaseName: metrics-server
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: metrics-server
