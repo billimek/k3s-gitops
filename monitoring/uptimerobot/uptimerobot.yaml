@@ -22,4 +22,4 @@ spec:
             port: 8086
             database: uptimerobot
   valueFileSecrets:
-  - name: "uptimerobot-values"
+  - name: "uptimerobot-helm-values"
