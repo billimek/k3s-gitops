@@ -1,0 +1,23 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: modem-stats
+  namespace: monitoring
+spec:
+  releaseName: modem-stats
+  chart:
+    repository: https://billimek.com/billimek-charts/
+    name: modem-stats
+    version: 1.0.7
+  values:
+    image:
+      repository: billimek/sb6183-for-influxdb
+      tag: latest
+    debug: true
+    config:
+        delay: 600
+        influxdb:
+            host: influxdb
+            port: 8086
+            database: cable_modem_stats
