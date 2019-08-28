@@ -1,0 +1,38 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: metrics-server
+  namespace: kube-system
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  releaseName: metrics-server
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: metrics-server
+    version: 2.8.2
+  values:
+    image:
+      repository: gcr.io/google_containers/metrics-server-amd64
+      tag: v0.3.2
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: metrics-server-arm
+  namespace: kube-system
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  releaseName: metrics-server
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: metrics-server
+    version: 2.8.2
+  values:
+    image:
+      repository: gcr.io/google_containers/metrics-server-arm
+      tag: v0.3.2
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
