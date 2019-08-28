@@ -1,16 +1,20 @@
 # Light-weight mixed-architecture cluster setup with k3s
 
-## k3s master node installation
+## k3s node installation
 
-on the k3s 'master' k3s node, we tell flannel to use eth0:
+**TODO:** automate this more, perhaps as part of terraform
+
+### master node
+
+on the k3s 'master' k3s node, we disable servicelb and traefik because we're deploying metallb and traefik ourselves:
 
 ```shell
 k3sup install --ip 10.2.0.30 --k3s-extra-args '--no-deploy servicelb --no-deploy traefik' --user ubuntu
 ```
 
-## k3s worker nodes installation
+### worker nodes
 
-### amd64
+#### amd64
 
 ```shell
 for node in $(echo "10.2.0.31 10.2.0.32"); do
@@ -18,7 +22,7 @@ for node in $(echo "10.2.0.31 10.2.0.32"); do
 done
 ```
 
-### arm (e.g. rpi4)
+#### arm (e.g. rpi4)
 
 We add a node taint to prevent scheduling unless there is a toleration in place. See [this comment](https://github.com/billimek/homelab-infrastructure/issues/2#issuecomment-522558754) for some background.
 
@@ -40,9 +44,9 @@ done
 ssh ubuntu@10.2.0.30 "/usr/local/bin/k3s-uninstall.sh"
 ```
 
-k3s-agent-uninstall.sh
+## bootstrapping k3s cluster
 
-## bootstrapping
+**TODO:** automate this more, perhaps as part of terraform
 
 ### helm
 
@@ -71,9 +75,9 @@ kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 * Add the key to the repo as a deploy key with write access as [described in the instructions](https://docs.fluxcd.io/en/latest/tutorials/get-started-helm.html#giving-write-access)
 
-## kubeseal
+### kubeseal
 
-### brand-new cluster
+#### brand-new cluster
 
 If this is brand-new, get the new public cert via,
 
@@ -84,11 +88,19 @@ kubeseal --fetch-cert \
 > $(git rev-parse --show-toplevel)/pub-cert.pem
 ```
 
-### restoring existing key
+#### restoring existing key
 
 If desiring to restore the existing kubeseal key,
 
 ```shell
 kubectl replace -f master.key --force
 kubectl delete pod -n kube-system -l name=sealed-secrets-controller
+```
+
+### init_script.sh
+
+This script creates necessary manual yaml insertions and sealed secret generations.  See [init_script.sh](init_script.sh) for more details.
+
+```shell
+init_script.sh
 ```
