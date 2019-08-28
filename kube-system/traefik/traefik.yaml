@@ -44,7 +44,7 @@ spec:
         enabled: true
       serviceMonitor:
         enabled: true
-        namespace: monitoring
+        namespace: kube-system
     tolerations:
     - key: "arm"
       operator: "Exists"
