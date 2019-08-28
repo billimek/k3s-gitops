@@ -43,7 +43,8 @@ spec:
       prometheus:
         enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
+        namespace: monitoring
     tolerations:
     - key: "arm"
       operator: "Exists"
