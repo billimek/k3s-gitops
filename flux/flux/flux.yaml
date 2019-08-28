@@ -15,7 +15,7 @@ spec:
     version: 0.14.0
   values:
     image:
-      repository: "flux"
+      repository: docker.io/fluxcd/flux
       tag: 1.14.1
     helmOperator:
       create: true
