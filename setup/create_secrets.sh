@@ -45,3 +45,5 @@ NS=kube-system kseal "$REPO_ROOT/kube-system/kured/kured-helm-values.txt" > "$RE
 
 NS=monitoring kseal "$REPO_ROOT/monitoring/chronograf/chronograf-helm-values.txt" > "$REPO_ROOT/monitoring/chronograf/chronograf-helm-values.yaml"
 NS=monitoring kseal "$REPO_ROOT/monitoring/prometheus-operator/prometheus-operator-helm-values.txt" > "$REPO_ROOT/monitoring/prometheus-operator/prometheus-operator-helm-values.yaml"
+NS=monitoring kseal "$REPO_ROOT/monitoring/comcast/comcast-helm-values.txt" > "$REPO_ROOT/monitoring/comcast/comcast-helm-values.yaml"
+NS=monitoring kseal "$REPO_ROOT/monitoring/uptimerobot/uptimerobot-helm-values.txt" > "$REPO_ROOT/monitoring/uptimerobot/uptimerobot-helm-values.yaml"
