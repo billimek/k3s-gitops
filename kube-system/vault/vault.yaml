@@ -17,9 +17,9 @@ spec:
     #     - key: "arm"
     #       operator: "Exists"
       standalone:
-        enabled: false
-      ha:
         enabled: true
+      ha:
+        enabled: false
     ui:
       enabled: true
     #   serviceType: "ClusterIP"
