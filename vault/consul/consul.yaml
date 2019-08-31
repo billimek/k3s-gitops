@@ -2,7 +2,7 @@ apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
   name: consul
-  namespace: kube-system
+  namespace: vault
 spec:
   releaseName: consul
   chart:
@@ -16,7 +16,6 @@ spec:
         - key: "arm"
           operator: "Exists"
     client:
-      # enabled: true
       tolerations: |
         - key: "arm"
           operator: "Exists"
