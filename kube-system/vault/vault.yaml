@@ -12,10 +12,10 @@ spec:
     ref: master
     path: .
   values:
-    server:
-      tolerations:
-        key: "arm",
-        operator: "Exists"
+    # server:
+    #   tolerations:
+    #     - key: "arm"
+    #       operator: "Exists"
     standalone:
       enabled: false
     ha:
