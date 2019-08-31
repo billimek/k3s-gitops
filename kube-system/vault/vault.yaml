@@ -27,7 +27,7 @@ spec:
           }
           storage "consul" {
             path = "vault"
-            address = "consul:8500"
+            address = "consul-consul-server:8500"
           }
     ui:
       enabled: true
