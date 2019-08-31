@@ -14,8 +14,8 @@ spec:
   values:
     server:
       tolerations:
-        - key: "arm"
-          operator: "Exists"
+        key: "arm",
+        operator: "Exists"
     standalone:
       enabled: false
     ha:
