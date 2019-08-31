@@ -1,0 +1,22 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: consul
+  namespace: kube-system
+spec:
+  releaseName: consul
+  chart:
+    git: https://github.com/hashicorp/consul-helm
+    ref: master
+    path: .
+  values:
+    server:
+      enabled: true
+      tolerations: |
+        - key: "arm"
+          operator: "Exists"
+    client:
+      # enabled: true
+      tolerations: |
+        - key: "arm"
+          operator: "Exists"

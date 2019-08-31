@@ -3,8 +3,6 @@ kind: HelmRelease
 metadata:
   name: vault
   namespace: kube-system
-  annotations:
-    # flux.weave.works/automated: "true"
 spec:
   releaseName: vault
   chart:
@@ -13,13 +11,24 @@ spec:
     path: .
   values:
     server:
-    #   tolerations:
-    #     - key: "arm"
-    #       operator: "Exists"
+      tolerations: |
+        - key: "arm"
+          operator: "Exists"
       standalone:
-        enabled: true
-      ha:
         enabled: false
+      ha:
+        enabled: true
+        config: |
+          ui = true
+          listener "tcp" {
+            tls_disable = 1
+            address = "[::]:8200"
+            cluster_address = "[::]:8201"
+          }
+          storage "consul" {
+            path = "vault"
+            address = "consul:8500"
+          }
     ui:
       enabled: true
     #   serviceType: "ClusterIP"
