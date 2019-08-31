@@ -12,14 +12,14 @@ spec:
     ref: master
     path: .
   values:
-    # server:
+    server:
     #   tolerations:
     #     - key: "arm"
     #       operator: "Exists"
-    standalone:
-      enabled: false
-    ha:
-      enabled: true
+      standalone:
+        enabled: false
+      ha:
+        enabled: true
     ui:
       enabled: true
     #   serviceType: "ClusterIP"
