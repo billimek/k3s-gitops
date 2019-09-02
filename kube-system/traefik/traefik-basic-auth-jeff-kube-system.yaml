@@ -1,10 +1,10 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: traefik-basic-auth-jeff
   namespace: kube-system
 spec:
-  encryptedData:
-    auth: AgAru5eMuf7MOQTYXQ2/a8ePx3z+f2oEd4XJ2GA1+0yBtSckDzKMw8RQSXRmJhVZBHDyuK93kpVAHjxFeMmk7hPoKVpE0LoG1V68FUjTeX81jFrmz6KJ7KcNZz1ZlSILFggVStIAVNzxvgxnE/8HaMDHIfWMJL1Y10pvZgOtydfRRwEJrp4bYH/y7BvW1lZHV4T6MbxMxuTKcIW6amvzbsY1HnlWm7SpTstR+UlKzWUINj2BopmM3OzROydBoLtEDlf4j2JyaPsHO9yPt+Lfhbq7u0WCSK+uc2V2t3T9eYCgH0gSjGupv6Oat3qarK9M1bdUiWWV9ncX+s5VKq8ACBLtWi1411X7vQiD2XbRwmMAxTH/aiyyhwAhIfrSe07MlBxoN7y4n3d7LUhfvUGH1HrA49HLygrXpnNA+3gaCdWA3ew+Wdx1CUuJLSALrwIdH3LrAqwS0J+inuulyhZ3nFp2evk7f6CuxIKR/kWy59oX+Q/O1jPFAcic/IxVqkIBXHTdBDnoLFR0E8n6LCxzm/QdpcY4HI98umsXGEza50FNDr1P8+OEXQa6Aae9wjYoivzGghDJB/2g9qj4mRPDVy+K4ztf7iMV1kdg4G03emuNq5wRSOhBz5hkyIxAM60WCD8NJLR+m6gD9a2ZRQ8a/2lMQJtrZCyHwQ0sB/9Z4r19IlTPCxyh3hR9EKYOhxrSnb2Tl01su3Uz4E4OrQv5uXX2pdeD7NySDk/yYoQ4oyuNQIVdxjBikMrNq08=
-
+  keys:
+    - auth
+  path: secrets/kube-system/traefik-basic-auth-jeff
+  type: Opaque

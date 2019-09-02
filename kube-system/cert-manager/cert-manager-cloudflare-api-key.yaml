@@ -1,10 +1,10 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: cloudflare-api-key
   namespace: kube-system
 spec:
-  encryptedData:
-    api-key: AgCYVym86tlpWXLrpYAvBkuol72bslELmFl+4geNAw2stRD2jkNGCFFEArZeSnPkwBCxtBCXaz3weIKrtRlDk9Yd50Kpbhj6l8H2fxCoW4Y7tlRsvTsqhtrRKE8w9lKQhmNJcij8DBbKPq3rGV5kYqvFpjbhp79CqzhfRr6dq6nB1VTeWRNkUDSHtt48AmySPG6albr0Cgy6HUCyWHq9g89NlOFdlAVs+rY9ndCftGSN8raUbcDIOS/whrmy+z8U1DFKIlljv9QPz+wmCv7P2TNFVbHYMfzn2yJ1ivIrXKlL80VxxPLcmqmPBQeY8ygFPySTJUsRIFdEBcgQpbz33IMoSJPEHn/C9P32iFre8J1QYmDtPJYBjVllpsm+YNhq3ABhH8Ary0Kp9QKx5r0DiS0qfuFTHzhhiWd6fULBWo3HBTDJVm5+5MXMnMKM3e3CPB/KSAoi6EZ7eNGetwicZXIzA7xq29PgyXGm4KlEINxvEpHnboaIOJhIykQuaVz0y/VqPFDhllvl6ZHFUimpHBAw7gudcx/Xymvn5dCkq8hfjn/Dre30CAM34mdATNxAkUx1oaWQSzy3SSlXDb0jBkV/yjpFbq4H5n6ODZwQ+5w0uzPJn7qjdy3rn7Ym68mnAUx+DEHa7nQxe47oB0Cu+215L2Z5zv7g0KAAe+BjIRcf6lTKjtoTpzL6D8BpUZRxYFUb6k1sZOOIKuOswETjiFPt9dPce07FhllxBP3aKM7dIo40IQ3H
-
+  keys:
+    - api-key
+  path: secrets/kube-system/cloudflare-api-key
+  type: Opaque
