@@ -1,10 +1,10 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: kured-helm-values
   namespace: kube-system
 spec:
-  encryptedData:
-    values.yaml: AgBN0Tz+HxtLYnA3LoatqFu9BivoRB7nh5LXQFJ6fgg9HBarVlBPej0RNWw4KGYZo8CredunlEj9xXXXx1XC7onyVSTS6Iw6xfoWuh3s02P39hmR/bKGdBrQwt19Iu5ZnBc97o059Rs/kxyiCZcWg6Q1rFljoZwBtp9qrNqrLuDuOBYYKea7opAVv0fL1I1xaKH5bw0zIAabqUEDzH1irzlC3uqH1+4s1BtdRtjdxB/15NvvI17z/5nBEK0DXdLOUGb9NtXLMKbNK+bR8TQt9RaTIQHC1+cOzGuQwvkL3PBvH2Dft+Ukimt0UIqtEL/O4F/Zj9/ew1xEQV4nZNNCuayzsY/bTP5sQHmb136VfiOn2TfbtLSmNuQt0+Q+871i+tJiamid0BBL2MjRwk3a4MRp+nahy54JZAYe1chOYQOsVKqO6+50MLS8P8EWo5XO8p8E1e6lubg0BKZXYSZ3xxtjR+BYjCXfNP1YrUnkM0GvurW8YSIGZ+3U5SldEt76mFMWiWFsv23OezQLoTu+Aw6aqQj9ieyzc8Rh86ZW9tZ2wZVj9vZdQEeqZbEIKVKZgw3peArJU+JDVyNk/jFkZqEwcgZyqAzn7UsMLpb/pKON50ZvTqOqGw5wt9Omj786FeoBz0e7TihHFYCjbxDa8vTmrzyCII+hWLoXtvjfDdu1RU3z6KF2xp7FbU/6Ib/NaF+7uJ78Q5NZmwjEXjN5TB/GCn1odlp5dABtYnlFrB+42fQHRyL8Ih2HCd8iA6NLFbP33lqwFDxx0Z6xP6JVs/e52r0b5a2nlNRbiMtVNSUp3J+AJ2s2TqoKJvtzWCeNw4t9UZdobnsai8WLAOc=
-
+  keys:
+    - slack_url
+  path: secrets/kube-system/kured/kured-helm-values
+  type: Opaque

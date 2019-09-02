@@ -1,10 +1,10 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: traefik-helm-values
   namespace: kube-system
 spec:
-  encryptedData:
-    values.yaml: AgC8c349FzwGOuK8+It3ThGaQhZzJCZSmZATQJMeHZytx1v5rhIlXEf2+0WZ+fTuQNBiWVnWBrdB+Figt6OB3hB9KgzheeCeAWPCRv8ecDdju8qUPFM9kRQC3wTvQS6E7+tfk8VP/dfh2dkHN3A94YpWB67xVZdK1YxWAaTh5lrdokWDqEXh8Ztem6v+ufM+ksSaYKlKjwsKPowfX4TL70sgm5GDJVRnG6fMZ+HToqkAnD2qWW+IfSSE1rq317DIJs1SjfwEcgM0DdT/v9puiCi1Co8Rbe1kZSTEB1cXRqAmiIQwLLJGBOb3yb3PemU3nWVYISw21yqyVjEPiERsvPrCvj4Dw01Vn/Fble4WM97Po0MjU/lt7gJWY+pyw+zF0WuL7U2nDLFHc75vQy622drfmxkT3IMbrvxJ+fdXHuqy1mxWYAdzpPc+rVocMeBSJ3uprEzJI7zNySX8iJXZdjQswtjHxonRyZ9eq3/GzuJjzFZirUHn9lKUEkiZgwZba+m5I84hYEEgkLtQxB1SHvbi0rPaXB/gkqYRp0Xhuihwv27892usqwp12hqSSHR/vJ5m3pr+GGXkkwKX//pCogdUsG6t2VrIHs2yl6h27sqmeVwOIDQ4SWcafZvTwnjiTxahyp3It8VzScO7/NT4jHHNTsAUM4aYntkbpMQb9sfyGVp3y9dS7bvt56EHVdVA75YS+Oy01/IfOxTmAqCbRG6s+tVln6GpQ5otBuGZrKSZ3lnxDe2QP7lhkiVXhPKhXjFMPYcRJXaYRIriHlkoSqE/46LzhrvGMV4+AxRhda3Vxts2X9jY+jj78nN3X2G4xnzaCP9ZUE/6UPdVgwBzErCnNFS9uaKmzNxAFVAa7jDRpBlzASoPoZ3gItyTce3pOfZ5meEka/S/beQt07MiX6teGpWsDtUaVzjhIbAZAlnyoWMnx67JF8UrrhMx/Kdt3e+zpScq/A85693sEaa1eWGoIbcW+oCxAg==
-
+  keys:
+    - slack_url
+  path: secrets/kube-system/traefik/traefik-helm-values
+  type: Opaque
