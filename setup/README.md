@@ -75,31 +75,9 @@ kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 * Add the key to the repo as a deploy key with write access as [described in the instructions](https://docs.fluxcd.io/en/latest/tutorials/get-started-helm.html#giving-write-access)
 
-### kubeseal
-
-#### brand-new cluster
-
-If this is brand-new, get the new public cert via,
-
-```shell
-kubeseal --fetch-cert \
---controller-namespace=kube-system \
---controller-name=sealed-secrets \
-> $(git rev-parse --show-toplevel)/pub-cert.pem
-```
-
-#### restoring existing key
-
-If desiring to restore the existing kubeseal key,
-
-```shell
-kubectl replace -f master.key --force
-kubectl delete pod -n kube-system -l name=sealed-secrets-controller
-```
-
 ### init_script.sh
 
-This script creates necessary manual yaml insertions and sealed secret generations.  See [init_script.sh](init_script.sh) for more details.
+This script creates necessary manual yaml insertions and vault secret population.  See [init_script.sh](init_script.sh) for more details.
 
 ```shell
 init_script.sh
