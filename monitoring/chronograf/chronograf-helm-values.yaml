@@ -1,10 +1,10 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: chronograf-helm-values
   namespace: monitoring
 spec:
-  encryptedData:
-    values.yaml: AgBWJVSbp9NEYczMybnKW2PxHN0DwNwy66U59WgEUmodm+BElkB8xyKv+ZBZLyXC2Uv1cJX0QjYYzJeWcWUIQe+KSTVRFinGILWLFjZLzNvBkG6T38AcMFOthlkwbp4//X0P71dsHQaI212NFcbDEnsAO72ZKeEmaXqrWjfQnkoxpnuj1RoISMrkqDj1SuCoLkv7t8m96px48i9nfJ98uA29wKiNAvzssM/ISPklG3txK2X1j/CiDVGC4d0bhbfdNSXFex7oE70EDAwWlVdE5ahesF7IJ4xEI95JC/Xz8CAXcBvjdXDP1AnEyfrMQxR9kiCuOU4AcfRCFBthqykV0bsE5pudv+wB+1mQUncCndTOaFRGUCvAhgKoUzQEyYQTlsg1wmVG0lPC9dxH7r14H+b/LCiwca/Xr9hI+40jSH6DbXl3N4dybO1GpGvagXxomZIOPsU/F+QwxfPXV+HHv5rOgzie4BU3M9aOVLQH0OHfMHpmZYjTECh9v4EveOGiHT73VxLzrVVRTOeb4PpgutL5avapx5fOdfJJ1riqjMqVRkebXT3qcGT8zn8Rln8U9Njz53d/zKva9Xi+ItFx8VvK6eJcsmhD7s9Eo8l4Z5JQYw1QpVMY+Uugj5Ne+QrHW0/Y1zqpUFj8pdDRJydl+BAgnu643JQiejltE7SkiT6Wv08heevY1C51KsHBnNEyceQX+8OtWas1aybs1smaDV8BryPqnYWu0uDPCYHKypawNrcbiO34NTDNNl2eSvHDCfSYs+nAuA==
-
+  keys:
+    - values.yaml
+  path: secrets/monitoring/chronograf/chronograf-helm-values
+  type: Opaque
