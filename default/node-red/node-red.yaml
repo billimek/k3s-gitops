@@ -20,9 +20,9 @@ spec:
     persistence:
       enabled: true
       # storageClass: "rbd"
-    tolerations:
-    - key: "arm"
-      operator: "Exists"
+    # tolerations:
+    # - key: "arm"
+    #   operator: "Exists"
     flows: "flows.json"
     ingress:
       enabled: true
