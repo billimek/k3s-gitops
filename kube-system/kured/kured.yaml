@@ -39,5 +39,7 @@ spec:
     tolerations:
       - key: "arm"
         operator: "Exists"
+    nodeSelector:
+      kubernetes.io/arch: arm
   valueFileSecrets:
   - name: "kured-helm-values"
