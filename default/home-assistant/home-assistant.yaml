@@ -1,0 +1,83 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: default
+  annotations:
+    flux.weave.works/ignore: "false"
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: semver:~0
+spec:
+  releaseName: home-assistant
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: home-assistant
+    version: 0.9.7
+  values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 0.98.3
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      # storageClass: rbd
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+    vscode:
+      enabled: true
+      image:
+        repository: codercom/code-server
+        tag: 2.preview.11-vsc1.37.0
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+          ingress.kubernetes.io/auth-type: "forward"
+          ingress.kubernetes.io/auth-url: "http://auth0-forwardauth.kube-system.svc.cluster.local/authorize"
+          ingress.kubernetes.io/auth-trust-headers: "true"
+  valueFileSecrets:
+  - name: "home-assistant-helm-values"
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: hass-postgresql
+  namespace: default
+  annotations:
+    flux.weave.works/automated: "false"
+    flux.weave.works/tag.chart-image: semver:~11
+spec:
+  releaseName: hass-postgresql
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: postgresql
+    version: 6.3.4
+  values:
+    image:
+      repository: postgres
+      tag: 11.5-alpine 
+    postgresqlUsername: "homeassistant"
+    postgresqlDatabase: "homeassistant"
+    replication:
+      enabled: true
+      slaveReplicas: 2
+      synchronousCommit: "on"
+      numSynchronousReplicas: 1
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      storageClass: "rbd"
+    metrics:
+      enabled: true
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+  valueFileSecrets:
+  - name: "hass-postgresql-helm-values"
