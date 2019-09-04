@@ -73,7 +73,7 @@ spec:
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
-      storageClass: "rbd"
+      # storageClass: "rbd"
     metrics:
       enabled: true
     tolerations:
