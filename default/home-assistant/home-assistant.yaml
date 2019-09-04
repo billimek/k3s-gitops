@@ -61,8 +61,8 @@ spec:
     version: 6.3.4
   values:
     image:
-      repository: postgres
-      tag: 11.5-alpine 
+      repository: bitnami/postgresql
+      tag: 11.5.0-debian-9-r26
     postgresqlUsername: "homeassistant"
     postgresqlDatabase: "homeassistant"
     replication:
@@ -76,8 +76,13 @@ spec:
       # storageClass: "rbd"
     metrics:
       enabled: true
-    tolerations:
-    - key: "arm"
-      operator: "Exists"
+    master:
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
+    slave:
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
   valueFileSecrets:
   - name: "hass-postgresql-helm-values"
