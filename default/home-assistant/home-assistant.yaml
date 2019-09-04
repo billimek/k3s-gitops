@@ -13,7 +13,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: home-assistant
-    version: 0.9.7
+    version: 0.9.6
   values:
     image:
       repository: homeassistant/home-assistant
