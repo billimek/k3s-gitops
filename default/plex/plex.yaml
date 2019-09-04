@@ -32,11 +32,11 @@ spec:
     persistence:
       transcode:
         enabled: true
-        claimName: nfs-data-pvc-10g
+        claimName: nfs-data-pvc
         subPath: plex
       data:
         enabled: true
-        claimName: nfs-media-pvc-10g
+        claimName: nfs-media-pvc
       config:
         # storageClass: "rbd"
         accessMode: ReadWriteOnce
