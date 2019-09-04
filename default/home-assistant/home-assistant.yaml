@@ -76,13 +76,5 @@ spec:
       # storageClass: "rbd"
     metrics:
       enabled: true
-    master:
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
-    slave:
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
   valueFileSecrets:
   - name: "hass-postgresql-helm-values"
