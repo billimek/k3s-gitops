@@ -10,7 +10,7 @@ metadata:
 spec:
   releaseName: kube-plex
   chart:
-    git: https://https://github.com/munnerz/kube-plex
+    git: https://github.com/munnerz/kube-plex
     ref: master
     path: charts/kube-plex
   values:
