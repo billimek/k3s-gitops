@@ -18,3 +18,26 @@ spec:
       tag: 1.2.0
   valueFileSecrets:
   - name: "kured-helm-values"
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: kured-arm
+  namespace: kube-system
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: kured-arm
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: kured
+    version: 1.3.1
+  values:
+    image:
+      repository: quay.io/anguslees/kured-arm
+      tag: latest
+    tolerations:
+      - key: "arm"
+        operator: "Exists"
+  valueFileSecrets:
+  - name: "kured-helm-values"
