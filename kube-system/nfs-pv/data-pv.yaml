@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.0.0.7
+    server: 10.0.7.7
     path: "/tank/data"
 ---
 apiVersion: v1
