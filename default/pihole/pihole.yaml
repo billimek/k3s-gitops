@@ -10,14 +10,16 @@ metadata:
 spec:
   releaseName: pihole
   chart:
-    git: https://github.com/MoJo2600/pihole-kubernetes
-    ref: master
+    git: https://github.com/billimek/pihole-kubernetes
+    ref: override_dns
     path: pihole
   values:
     image:
       repository: pihole/pihole
       tag: 4.3.1-4
     replicaCount: 2
+    DNS1: 10.0.7.1
+    DNS2: ""
     tolerations:
     - key: "arm"
       operator: "Exists"
