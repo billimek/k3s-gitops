@@ -20,12 +20,12 @@ spec:
     replicaCount: 2
     DNS1: 10.0.7.1
     DNS2: 10.0.7.1
-    extraEnvVars:
-      TZ: UTC
-      DNS_BOGUS_PRIV: false
-      DNS_FQDN_REQUIRED: false
-      CONDITIONAL_FORWARDING: true
-      CONDITIONAL_FORWARDING_IP: 10.0.7.1
+    # extraEnvVars:
+    #   TZ: UTC
+    #   DNS_BOGUS_PRIV: false
+    #   DNS_FQDN_REQUIRED: false
+    #   CONDITIONAL_FORWARDING: true
+    #   CONDITIONAL_FORWARDING_IP: "10.0.7.1"
     tolerations:
     - key: "arm"
       operator: "Exists"
