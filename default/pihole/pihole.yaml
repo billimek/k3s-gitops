@@ -36,3 +36,4 @@ spec:
         metallb.universe.tf/allow-shared-ip: pihole-svc
     persistentVolumeClaim:
       enabled: true
+      storageClass: "nfs-client"
