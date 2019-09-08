@@ -43,5 +43,3 @@ spec:
     persistentVolumeClaim:
       enabled: true
       storageClass: "nfs-client"
-  valueFileSecrets:
-  - name: "pihole-helm-values"
