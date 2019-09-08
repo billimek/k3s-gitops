@@ -6,7 +6,7 @@ metadata:
   namespace: default
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: 'regexp:^(4\.[0-9]+\.[0-9]+-.*)$'
+    flux.weave.works/tag.chart-image: 'regexp:^(4\.[0-9]+\.[0-9]+(-[0-9]+)?)$'
 spec:
   releaseName: pihole
   chart:
@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: pihole/pihole
-      tag: 4.3.1-4_aarch64
+      tag: 4.3.1-4
     replicaCount: 2
     DNS1: 10.0.7.1
     DNS2: 10.0.7.1
