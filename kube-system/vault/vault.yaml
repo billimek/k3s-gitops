@@ -11,6 +11,10 @@ spec:
     path: .
   values:
     server:
+      extraSecretEnvironmentVars:
+        - envName: VAULT_TOKEN
+          secretName: vault
+          secretKey: vault-unwrap-token
       tolerations: |
         - key: "arm"
           operator: "Exists"
@@ -42,5 +46,3 @@ spec:
           }
     ui:
       enabled: true
-  valueFileSecrets:
-  - name: "vault-helm-values"

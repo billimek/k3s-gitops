@@ -28,6 +28,8 @@ kapply "$REPO_ROOT"/kube-system/cert-manager/cert-manager-letsencrypt.txt
 ##########
 # secrets
 ##########
+kubectl create secret generic vault --from-literal=vault-unwrap-token="$VAULT_UNSEAL_TOKEN" --namespace kube-system
+
 vault kv put secrets/flux/fluxcloud slack_url="$SLACK_WEBHOOK_URL"
 vault kv put secrets/kube-system/traefik-basic-auth-jeff auth="$JEFF_AUTH"
 vault kv put secrets/kube-system/cloudflare-api-key api-key="$CF_API_KEY"

@@ -1,2 +1,0 @@
-extraEnvironmentVars:
-  VAULT_TOKEN: "$VAULT_UNSEAL_TOKEN"
