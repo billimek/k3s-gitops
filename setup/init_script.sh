@@ -37,6 +37,7 @@ vault kv put secrets/kube-system/cloudflare-api-key api-key="$CF_API_KEY"
 ####################
 kvault "kube-system/traefik/traefik-helm-values.txt"
 kvault "kube-system/kured/kured-helm-values.txt"
+kvault "kube-system/vault/vault-helm-values.txt"
 kvault "monitoring/chronograf/chronograf-helm-values.txt"
 kvault "monitoring/prometheus-operator/prometheus-operator-helm-values.txt"
 kvault "monitoring/comcast/comcast-helm-values.txt"
