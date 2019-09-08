@@ -1,0 +1,38 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: pihole
+  namespace: default
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: 'regexp:^(4\.[0-9]+\.[0-9]+-.*)$'
+spec:
+  releaseName: pihole
+  chart:
+    git: https://github.com/MoJo2600/pihole-kubernetes
+    ref: master
+    path: pihole
+  values:
+    image:
+      repository: pihole/pihole
+      tag: 4.3.1-4
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+    serviceTCP:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      loadBalancerIP: 10.2.0.223
+      annotations:
+        metallb.universe.tf/address-pool: network-services
+        metallb.universe.tf/allow-shared-ip: pihole-svc
+    serviceUDP:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      loadBalancerIP: 10.2.0.223
+      annotations:
+        metallb.universe.tf/address-pool: network-services
+        metallb.universe.tf/allow-shared-ip: pihole-svc
+    persistentVolumeClaim:
+      enabled: true
