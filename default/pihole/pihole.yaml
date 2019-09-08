@@ -20,9 +20,6 @@ spec:
     replicaCount: 2
     DNS1: 10.0.7.1
     DNS2: 10.0.7.1
-    extraEnvVars:
-      DNS_BOGUS_PRIV: false
-      DNS_FQDN_REQUIRED: false
     tolerations:
     - key: "arm"
       operator: "Exists"
@@ -43,3 +40,5 @@ spec:
     persistentVolumeClaim:
       enabled: true
       storageClass: "nfs-client"
+  valueFileSecrets:
+  - name: "pihole-helm-values"
