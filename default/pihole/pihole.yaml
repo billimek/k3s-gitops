@@ -17,7 +17,8 @@ spec:
     image:
       repository: pihole/pihole
       tag: 4.3.1-4
-    tolerations:
+    replicaCount: 2
+      tolerations:
     - key: "arm"
       operator: "Exists"
     serviceTCP:
