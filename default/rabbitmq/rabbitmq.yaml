@@ -35,6 +35,21 @@ spec:
     tolerations:
     - key: "arm"
       operator: "Exists"
+    resources: {}
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
+    initContainer:
+      resources: {}
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     definitions:
       permissions: |-
         {
