@@ -35,7 +35,7 @@ spec:
     tolerations:
     - key: "arm"
       operator: "Exists"
-    resources: {}
+    resources:
       limits:
         cpu: 100m
         memory: 512Mi
@@ -43,7 +43,7 @@ spec:
         cpu: 100m
         memory: 512Mi
     initContainer:
-      resources: {}
+      resources:
         limits:
           cpu: 100m
           memory: 128Mi
