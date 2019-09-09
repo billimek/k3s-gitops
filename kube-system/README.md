@@ -68,7 +68,7 @@ After deployment, initialize vault via:
 ```shell
 kubectl -n kube-system port-forward svc/vault 8200:8200 &
 export VAULT_ADDR='http://127.0.0.1:8200'
-vault operator init -n 1 -t 1
+vault operator init -recovery-shares=1 -recovery-threshold=1
 ```
 
 Make note of the unseal key and root token and keep in a very safe place
@@ -86,7 +86,9 @@ vault login <root token from above>
 
 ## Setup
 
-Follow the [vault-secrets-operator guide](https://github.com/ricoberger/vault-secrets-operator/blob/master/README.md) which is mostly the following:
+The setup is automatically handled during cluster bootstrapping.  See [bootstrap-vault.sh](../setup/bootstrap-vault.sh) for more detail.
+
+If configuring manually, follow the [vault-secrets-operator guide](https://github.com/ricoberger/vault-secrets-operator/blob/master/README.md) which is mostly the following:
 
 ```shell
 # if not logged in to vault already:
