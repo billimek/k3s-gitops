@@ -10,3 +10,4 @@ See [setup/README.md](setup/README.md) for more details.
 * [kube-system](kube-system/)
 * [monitoring](monitoring/)
 * [logs](logs/)
+* [default](default/)

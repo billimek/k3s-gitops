@@ -59,7 +59,7 @@ traefik in HA-mode (multiple replicas) leveraging cert-manager as the central ce
 
 * [vault/vault.yaml](vault/vault.yaml)
 
-TODO: Implement vault in HA mode and figure out how to self-host auto unsealing
+TODO: Implement vault in HA mode
 
 ## Setup
 
@@ -110,7 +110,7 @@ export SA_JWT_TOKEN=$(kubectl -n kube-system get secret $VAULT_SECRET_NAME -o js
 export SA_CA_CRT=$(kubectl -n kube-system get secret $VAULT_SECRET_NAME -o jsonpath="{.data['ca\.crt']}" | base64 --decode; echo)
 export K8S_HOST=$(kubectl -n kube-system config view --minify -o jsonpath='{.clusters[0].cluster.server}')
 
-# Verfify the environment variables
+# Verify the environment variables
 env | grep -E 'VAULT_SECRETS_OPERATOR_NAMESPACE|VAULT_SECRET_NAME|SA_JWT_TOKEN|SA_CA_CRT|K8S_HOST'
 
 vault auth enable kubernetes
