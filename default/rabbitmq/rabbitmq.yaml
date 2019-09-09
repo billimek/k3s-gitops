@@ -32,6 +32,8 @@ spec:
       annotations:
         kubernetes.io/ingress.class: "traefik"
     rabbitmqErlangCookie: "9uVNsf2plnpyslPjqUVaDmGTUml2wJlb"
+    forceBoot:
+      enabled: false
     tolerations:
     - key: "arm"
       operator: "Exists"
