@@ -1,7 +1,7 @@
 #!/bin/bash
 
-trap "exit" INT TERM
-trap "kill 0" EXIT
+# trap "exit" INT TERM
+# trap "kill 0" EXIT
 
 export REPO_ROOT=$(git rev-parse --show-toplevel)
 
@@ -15,6 +15,12 @@ need "sed"
 
 . "$REPO_ROOT"/setup/.env
 
+message() {
+  echo -e "\n######################################################################"
+  echo "# $1"
+  echo "######################################################################"
+}
+
 kvault() {
   name="secrets/$(dirname "$@")/$(basename -s .txt "$@")"
   if output=$(envsubst < "$REPO_ROOT/$*"); then
@@ -23,6 +29,7 @@ kvault() {
 }
 
 initVault() {
+  message "initializing and unsealing vault"
   VAULT_READY=1
   while [ $VAULT_READY != 0 ]; do
     kubectl -n kube-system wait --for condition=Initialized pod/vault-0 > /dev/null 2>&1
@@ -36,7 +43,7 @@ initVault() {
 
   VAULT_READY=1
   while [ $VAULT_READY != 0 ]; do
-    init_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json | jq -r '.initialized')
+    init_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json 2>/dev/null | jq -r '.initialized')
     if [ "$init_status" == "false" ]; then
       VAULT_READY=0
     else
@@ -45,8 +52,8 @@ initVault() {
     fi
   done
 
-  sealed_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json | jq -r '.sealed')
-  init_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json | jq -r '.initialized')
+  sealed_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json 2>/dev/null | jq -r '.sealed')
+  init_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json 2>/dev/null | jq -r '.initialized')
 
   if [ "$init_status" == "false" ]; then
     echo "initializing vault"
@@ -55,8 +62,8 @@ initVault() {
     export VAULT_ROOT_TOKEN=$(echo $vault_init | jq -r '.root_token')
     echo "VAULT_RECOVERY_TOKEN is: $VAULT_RECOVERY_TOKEN"
     echo "VAULT_ROOT_TOKEN is: $VAULT_ROOT_TOKEN"
-    sed -i '' "s~VAULT_ROOT_TOKEN=\".*\"~VAULT_ROOT_TOKEN=\"$VAULT_ROOT_TOKEN\"~" "$REPO_ROOT"/setup/.env
-    sed -i '' "s~VAULT_RECOVERY_TOKEN=\".*\"~VAULT_RECOVERY_TOKEN=\"$VAULT_RECOVERY_TOKEN\"~" "$REPO_ROOT"/setup/.env
+    sed -i'' "s~VAULT_ROOT_TOKEN=\".*\"~VAULT_ROOT_TOKEN=\"$VAULT_ROOT_TOKEN\"~" "$REPO_ROOT"/setup/.env
+    sed -i'' "s~VAULT_RECOVERY_TOKEN=\".*\"~VAULT_RECOVERY_TOKEN=\"$VAULT_RECOVERY_TOKEN\"~" "$REPO_ROOT"/setup/.env
     echo "SAVE THESE VALUES!"
     FIRST_RUN=0
   fi
@@ -68,6 +75,7 @@ initVault() {
 }
 
 loginVault() {
+  message "logging into vault"
   kubectl -n kube-system port-forward svc/vault 8200:8200 >/dev/null 2>&1 &
   VAULT_FWD_PID=$!
   sleep 5
@@ -93,6 +101,7 @@ loginVault() {
 }
 
 setupVaultSecretsOperator() {
+  message "configuring vault for vault-secrets-operator"
   vault secrets enable -path=secrets -version=1 kv
 
   # create read-only policy for kubernetes
@@ -128,6 +137,7 @@ EOF
 }
 
 loadSecretsToVault() {
+  message "writing secrets to vault"
   vault kv put secrets/flux/fluxcloud slack_url="$SLACK_WEBHOOK_URL"
   vault kv put secrets/kube-system/traefik-basic-auth-jeff auth="$JEFF_AUTH"
   vault kv put secrets/kube-system/cloudflare-api-key api-key="$CF_API_KEY"

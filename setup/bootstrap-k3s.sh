@@ -16,8 +16,14 @@ need "ssh"
 need "kubectl"
 need "helm"
 
+message() {
+  echo -e "\n######################################################################"
+  echo "# $1"
+  echo "######################################################################"
+}
+
 k3sMasterNode() {
-  echo "installing k3s master to $K3S_MASTER"
+  message "installing k3s master to $K3S_MASTER"
   ssh ubuntu@"$K3S_MASTER" "curl -sLS https://get.k3s.io | INSTALL_K3S_EXEC='server --tls-san $K3S_MASTER --no-deploy servicelb --no-deploy traefik' sh -"
   ssh ubuntu@"$K3S_MASTER" "sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/server: https:\/\/localhost:6443/server: https:\/\/$K3S_MASTER:6443/'" > "$REPO_ROOT/setup/kubeconfig"
   NODE_TOKEN=$(ssh ubuntu@"$K3S_MASTER" "sudo cat /var/lib/rancher/k3s/server/node-token")
@@ -25,19 +31,20 @@ k3sMasterNode() {
 
 ks3amd64WorkerNodes() {
   for node in $K3S_WORKERS_AMD64; do
-    echo "joining amd64 $node to $K3S_MASTER"
+    message "joining amd64 $node to $K3S_MASTER"
     ssh ubuntu@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN sh -s -"
   done
 }
 
 ks3armWorkerNodes() {
   for node in $K3S_WORKERS_RPI; do
-    echo "joining pi4 $node to $K3S_MASTER"
+    message "joining pi4 $node to $K3S_MASTER"
     ssh pi@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN sh -s - --node-taint arm=true:NoExecute --data-dir /mnt/usb/var/lib/rancher"
   done
 }
 
 installHelm() {
+  message "installing helm (tiller)"
   # generate files locally instead of against the cluster directly ?
   # TMPFILE=`mktemp /tmp/helm.XXXXXX` || exit 1
   # kubectl -n kube-system create sa tiller --dry-run -o=yaml >> "$TMPFILE"
@@ -63,13 +70,14 @@ installHelm() {
 }
 
 installFlux() {
+  message "installing flux"
   # install flux
   helm repo add fluxcd https://charts.fluxcd.io
   helm upgrade --install flux --values "$REPO_ROOT"/setup/flux-values.yaml --namespace flux fluxcd/flux
 
   FLUX_READY=1
   while [ $FLUX_READY != 0 ]; do
-    echo "waiting for flux account to be fully ready..."
+    echo "waiting for flux pod to be fully ready..."
     kubectl -n flux wait --for condition=available deployment/flux
     FLUX_READY="$?"
     sleep 5
@@ -78,7 +86,7 @@ installFlux() {
   # grab output the key
   FLUX_KEY=$(kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2)
 
-  echo "adding the key to github automatically"
+  message "adding the key to github automatically"
   "$REPO_ROOT"/setup/add-repo-key.sh "$FLUX_KEY"
 }
 
@@ -91,10 +99,11 @@ kapply() {
 installManualObjects(){
   . "$REPO_ROOT"/setup/.env
 
+  message "installing manual secrets and objects"
   ##########
   # secrets
   ##########
-  kubectl --namespace kube-system delete secret vault
+  kubectl --namespace kube-system delete secret vault > /dev/null 2>&1
   kubectl --namespace kube-system create secret generic vault --from-literal=vault-unwrap-token="$VAULT_UNSEAL_TOKEN"
 
   #########################
@@ -121,3 +130,6 @@ installManualObjects
 
 # bootstrap vault
 "$REPO_ROOT"/setup/bootstrap-vault.sh
+
+message "all done!"
+kubectl get nodes -o=wide

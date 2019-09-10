@@ -18,11 +18,15 @@ while true; do
     esac
 done
 
-# TODO: somehow delete/cleanup storage used by workloads before uninstalling agents. Otherwise there will be a lot storage used with no clean ownership
-# maybe: delete helmreleases or forcefully delete pv/pvcs or drain all nodes first and then remove storage
-# delete all workloads
+message() {
+  echo -e "\n######################################################################"
+  echo "# $1"
+  echo "######################################################################"
+}
+
+# Attempt to delete all namespaces and pvcs prior to tearing-down the cluster. The reason for this is to allow the nfs-client provisioner a change to 'archive' the storage directories
+message "Deleting all pods & pvcs"
 for ns in $(kubectl get ns --field-selector="status.phase==Active" --no-headers -o "custom-columns=:metadata.name"); do
-  # kubectl -n $ns delete pvc --all
   kubectl delete namespace "$ns" --wait=false
 done
 kubectl -n default delete deployments,statefulsets,daemonsets,pvc --all
@@ -32,16 +36,18 @@ kubectl -n kube-system delete deployments --all
 
 # raspberry pi4 worker nodes
 for node in $K3S_WORKERS_RPI; do
-  echo "tearing-down rpi $node"
+  message "tearing-down rpi $node"
   ssh pi@"$node" "k3s-agent-uninstall.sh"
 done
 
 # amd64 worker nodes
 for node in $K3S_WORKERS_AMD64; do
-  echo "tearing-down amd64 $node"
+  message "tearing-down amd64 $node"
   ssh ubuntu@"$node" "k3s-agent-uninstall.sh"
 done
 
 # k3s master node
-echo "removing k3s from $K3S_MASTER"
+message "removing k3s from $K3S_MASTER"
 ssh ubuntu@"$K3S_MASTER" "/usr/local/bin/k3s-uninstall.sh"
+
+message "all done - everything is removed!"
