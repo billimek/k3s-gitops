@@ -22,6 +22,9 @@ This [script](bootstrap-k3s.sh) does several things:
    * Configures vault to accept requests from vault-secrets-operator
    * Writes all secrets (held locally in the `.env` file) to vault for vault-secrets-operator to act on
 
+(example of the entire process):
+[![asciicast](https://asciinema.org/a/266944.png)](https://asciinema.org/a/266944?speed=2)
+
 ## k3s teardown (uninstall everything)
 
 ```shell
@@ -33,3 +36,6 @@ This [script](teardown-k3s.sh) will:
 1. Remove all pods and pvcs
 1. Uninstall k3s from all worker nodes
 1. Uninstall k3s from the master node
+
+(example of the entire process):
+[![asciicast](https://asciinema.org/a/266949.png)](https://asciinema.org/a/266949?speed=2)
