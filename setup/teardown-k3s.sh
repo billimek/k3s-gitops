@@ -37,17 +37,17 @@ kubectl -n kube-system delete deployments --all
 # raspberry pi4 worker nodes
 for node in $K3S_WORKERS_RPI; do
   message "tearing-down rpi $node"
-  ssh pi@"$node" "k3s-agent-uninstall.sh"
+  ssh -o "StrictHostKeyChecking=no" pi@"$node" "k3s-agent-uninstall.sh"
 done
 
 # amd64 worker nodes
 for node in $K3S_WORKERS_AMD64; do
   message "tearing-down amd64 $node"
-  ssh ubuntu@"$node" "k3s-agent-uninstall.sh"
+  ssh -o "StrictHostKeyChecking=no" ubuntu@"$node" "k3s-agent-uninstall.sh"
 done
 
 # k3s master node
 message "removing k3s from $K3S_MASTER"
-ssh ubuntu@"$K3S_MASTER" "/usr/local/bin/k3s-uninstall.sh"
+ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "/usr/local/bin/k3s-uninstall.sh"
 
 message "all done - everything is removed!"
