@@ -29,7 +29,7 @@ kvault() {
 }
 
 initVault() {
-  message "initializing and unsealing vault"
+  message "initializing and unsealing vault (if necesary)"
   VAULT_READY=1
   while [ $VAULT_READY != 0 ]; do
     kubectl -n kube-system wait --for condition=Initialized pod/vault-0 > /dev/null 2>&1
@@ -44,10 +44,10 @@ initVault() {
   VAULT_READY=1
   while [ $VAULT_READY != 0 ]; do
     init_status=$(kubectl -n kube-system exec "vault-0" -- vault status -format=json 2>/dev/null | jq -r '.initialized')
-    if [ "$init_status" == "false" ]; then
+    if [ "$init_status" == "false" ] || [ "$init_status" == "true" ]; then
       VAULT_READY=0
     else
-      echo "vault pod is almost ready, waiting for it to show sealed"
+      echo "vault pod is almost ready, waiting for it to report status"
       sleep 5
     fi
   done
@@ -62,8 +62,15 @@ initVault() {
     export VAULT_ROOT_TOKEN=$(echo $vault_init | jq -r '.root_token')
     echo "VAULT_RECOVERY_TOKEN is: $VAULT_RECOVERY_TOKEN"
     echo "VAULT_ROOT_TOKEN is: $VAULT_ROOT_TOKEN"
-    sed -i'' "s~VAULT_ROOT_TOKEN=\".*\"~VAULT_ROOT_TOKEN=\"$VAULT_ROOT_TOKEN\"~" "$REPO_ROOT"/setup/.env
-    sed -i'' "s~VAULT_RECOVERY_TOKEN=\".*\"~VAULT_RECOVERY_TOKEN=\"$VAULT_RECOVERY_TOKEN\"~" "$REPO_ROOT"/setup/.env
+
+    # sed -i operates differently in OSX vs linux
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        SED_INLINE="-i ''"
+    else
+        SED_INLINE="-i''"
+    fi
+    sed "$SED_INLINE" "s~VAULT_ROOT_TOKEN=\".*\"~VAULT_ROOT_TOKEN=\"$VAULT_ROOT_TOKEN\"~" "$REPO_ROOT"/setup/.env
+    sed "$SED_INLINE" "s~VAULT_RECOVERY_TOKEN=\".*\"~VAULT_RECOVERY_TOKEN=\"$VAULT_RECOVERY_TOKEN\"~" "$REPO_ROOT"/setup/.env
     echo "SAVE THESE VALUES!"
     FIRST_RUN=0
   fi
@@ -87,7 +94,6 @@ loginVault() {
     exit 1
   fi
 
-  echo "logging into vault"
   vault login -no-print "$VAULT_ROOT_TOKEN" || exit 1
 
   vault auth list >/dev/null 2>&1
