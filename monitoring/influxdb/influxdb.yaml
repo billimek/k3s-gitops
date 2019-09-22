@@ -19,7 +19,8 @@ spec:
       tag: "1.7.8"
     service:
       type: LoadBalancer
-      loadBalancerIP: 10.2.0.220
+      loadBalancerIP: 10.2.0.151
+      # loadBalancerIP: 10.2.0.220 # <-- k3s
     persistence:
       enabled: true
       size: 50Gi

@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: comcast
   namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: true
 spec:
   releaseName: comcast
   chart:

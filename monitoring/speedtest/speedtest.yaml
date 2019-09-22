@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: speedtest
   namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: true
 spec:
   releaseName: speedtest
   chart:

@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: modem-stats
   namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: true
 spec:
   releaseName: modem-stats
   chart:
