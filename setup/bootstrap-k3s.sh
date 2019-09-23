@@ -45,17 +45,6 @@ ks3armWorkerNodes() {
 
 installHelm() {
   message "installing helm (tiller)"
-  # generate files locally instead of against the cluster directly ?
-  # TMPFILE=`mktemp /tmp/helm.XXXXXX` || exit 1
-  # kubectl -n kube-system create sa tiller --dry-run -o=yaml >> "$TMPFILE"
-  # echo "---" >> "$TMPFILE"
-  # kubectl create clusterrolebinding tiller-cluster-rule \
-  #     --clusterrole=cluster-admin \
-  #     --serviceaccount=kube-system:tiller \
-  #     --dry-run -o=yaml >> "$TMPFILE"
-  # echo "---" >> "$TMPFILE"
-  # helm init --service-account tiller -o=yaml >> "$TMPFILE"
-
   kubectl -n kube-system create sa tiller
   kubectl create clusterrolebinding tiller-cluster-rule \
       --clusterrole=cluster-admin \
