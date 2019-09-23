@@ -15,9 +15,9 @@ spec:
         - envName: VAULT_TOKEN
           secretName: vault
           secretKey: vault-unwrap-token
-      tolerations: |
-        - key: "arm"
-          operator: "Exists"
+      # tolerations: |
+      #   - key: "arm"
+      #     operator: "Exists"
       # resources:
       #   requests:
       #     memory: 256Mi
