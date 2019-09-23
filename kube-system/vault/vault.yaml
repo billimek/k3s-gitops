@@ -18,13 +18,13 @@ spec:
       tolerations: |
         - key: "arm"
           operator: "Exists"
-      resources:
-        requests:
-          memory: 256Mi
-          cpu: 250m
-        limits:
-          memory: 256Mi
-          cpu: 250m
+      # resources:
+      #   requests:
+      #     memory: 256Mi
+      #     cpu: 250m
+      #   limits:
+      #     memory: 256Mi
+      #     cpu: 250m
       standalone:
         enabled: "true"
         config: |
