@@ -15,16 +15,16 @@ spec:
         - envName: VAULT_TOKEN
           secretName: vault
           secretKey: vault-unwrap-token
-      # tolerations: |
-      #   - key: "arm"
-      #     operator: "Exists"
-      # resources:
-      #   requests:
-      #     memory: 256Mi
-      #     cpu: 250m
-      #   limits:
-      #     memory: 256Mi
-      #     cpu: 250m
+      tolerations: |
+        - key: "arm"
+          operator: "Exists"
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: 250m
+        limits:
+          memory: 256Mi
+          cpu: 250m
       standalone:
         enabled: "true"
         config: |
