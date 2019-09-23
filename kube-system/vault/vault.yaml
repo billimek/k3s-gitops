@@ -44,5 +44,5 @@ spec:
             mount_path = "transit/"
             tls_skip_verify = "true"
           }
-    ui:
-      enabled: true
+    # ui:
+    #   enabled: true
