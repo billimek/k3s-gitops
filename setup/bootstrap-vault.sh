@@ -147,7 +147,7 @@ EOF
 loadSecretsToVault() {
   message "writing secrets to vault"
   vault kv put secrets/flux/fluxcloud slack_url="$SLACK_WEBHOOK_URL"
-  vault kv put secrets/kube-system/traefik-basic-auth-jeff auth="$JEFF_AUTH"
+  vault kv put secrets/kube-system/nginx-basic-auth-jeff auth="$JEFF_AUTH"
   vault kv put secrets/kube-system/cloudflare-api-key api-key="$CF_API_KEY"
 
   ####################
@@ -168,8 +168,8 @@ loadSecretsToVault() {
 }
 
 FIRST_RUN=1
-initVault
 export KUBECONFIG="$REPO_ROOT/setup/kubeconfig"
+initVault
 loginVault
 if [ $FIRST_RUN == 0 ]; then 
   setupVaultSecretsOperator

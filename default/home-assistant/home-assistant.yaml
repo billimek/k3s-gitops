@@ -26,7 +26,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: "traefik"
+        kubernetes.io/ingress.class: "nginx"
     # tolerations:
     # - key: "arm"
     #   operator: "Exists"
@@ -38,9 +38,9 @@ spec:
       ingress:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "traefik"
+          kubernetes.io/ingress.class: "nginx"
           ingress.kubernetes.io/auth-type: "basic"
-          ingress.kubernetes.io/auth-secret: "traefik-basic-auth-jeff"
+          ingress.kubernetes.io/auth-secret: "nginx-basic-auth-jeff"
           ingress.kubernetes.io/auth-trust-headers: "true"
   valueFileSecrets:
   - name: "home-assistant-helm-values"
