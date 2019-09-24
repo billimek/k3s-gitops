@@ -153,7 +153,6 @@ loadSecretsToVault() {
   ####################
   # helm chart values
   ####################
-  kvault "kube-system/traefik/traefik-helm-values.txt"
   kvault "kube-system/kured/kured-helm-values.txt"
   kvault "monitoring/chronograf/chronograf-helm-values.txt"
   kvault "monitoring/prometheus-operator/prometheus-operator-helm-values.txt"
@@ -163,8 +162,10 @@ loadSecretsToVault() {
   kvault "default/node-red/node-red-helm-values.txt"
   kvault "default/home-assistant/home-assistant-helm-values.txt"
   kvault "default/home-assistant/hass-postgresql-helm-values.txt"
+  kvault "default/minio/minio-helm-values.txt"
   kvault "default/plex/plex-helm-values.txt"
   kvault "default/pihole/pihole-helm-values.txt"
+  kvault "velero/velero/velero-helm-values.txt"
 }
 
 FIRST_RUN=1
