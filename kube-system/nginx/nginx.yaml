@@ -2,14 +2,14 @@
 apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
-  name: nginx
+  name: nginx-ingress
   namespace: kube-system
   annotations:
     fluxcd.io/ignore: false
     flux.weave.works/automated: "false"
     flux.weave.works/tag.chart-image: semver:~0.
 spec:
-  releaseName: nginx
+  releaseName: nginx-ingress
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: nginx-ingress
