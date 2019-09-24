@@ -15,18 +15,19 @@ spec:
     name: nginx-ingress
     version: 1.21.0
   values:
-    image:
-      repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
-      tag: "0.25.1"
-    replicaCount: 2
-    service:
-      loadBalancerIP: 10.2.0.210
-    metrics:
-      enabled: true
-      serviceMonitor:
+    controller:
+      image:
+        repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
+        tag: "0.25.1"
+      replicaCount: 2
+      service:
+        loadBalancerIP: 10.2.0.210
+      metrics:
         enabled: true
-      prometheusRule:
-        enabled: true
-    tolerations:
-    - key: "arm"
-      operator: "Exists"
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: true
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
