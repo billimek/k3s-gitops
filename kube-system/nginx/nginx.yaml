@@ -22,11 +22,11 @@ spec:
     service:
       loadBalancerIP: 10.2.0.210
     metrics:
-      enabled: false
+      enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
       prometheusRule:
-        enabled: false
+        enabled: true
     tolerations:
     - key: "arm"
       operator: "Exists"
