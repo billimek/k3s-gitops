@@ -12,7 +12,7 @@ spec:
   releaseName: nginx
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
-    name: nginx
+    name: nginx-ingress
     version: 1.21.0
   values:
     image:
