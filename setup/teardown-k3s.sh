@@ -37,7 +37,7 @@ kubectl -n kube-system delete deployments --all
 # raspberry pi4 worker nodes
 for node in $K3S_WORKERS_RPI; do
   message "tearing-down rpi $node"
-  ssh -o "StrictHostKeyChecking=no" pi@"$node" "k3s-agent-uninstall.sh"
+  ssh -o "StrictHostKeyChecking=no" pi@"$node" "k3s-agent-uninstall.sh && sudo rm -rf /mnt/usb/var/lib/rancher"
 done
 
 # amd64 worker nodes
