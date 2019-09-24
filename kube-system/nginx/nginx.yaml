@@ -26,6 +26,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+          namespace: monitoring
         prometheusRule:
           enabled: true
       # tolerations:
