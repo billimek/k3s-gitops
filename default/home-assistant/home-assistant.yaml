@@ -58,11 +58,11 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: postgresql
-    version: 6.3.4
+    version: 6.3.9
   values:
     image:
       repository: bitnami/postgresql
-      tag: 11.5.0-debian-9-r26
+      tag: 11.5.0-debian-9-r34
     postgresqlUsername: "homeassistant"
     postgresqlDatabase: "homeassistant"
     replication:
