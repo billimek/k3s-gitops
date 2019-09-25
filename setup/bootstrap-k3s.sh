@@ -4,6 +4,7 @@
 K3S_MASTER="k3s-0"
 K3S_WORKERS_AMD64="k3s-1 k3s-2"
 K3S_WORKERS_RPI="pi4-a pi4-b pi4-c"
+K3S_VERSION="v0.9.1"
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
@@ -24,22 +25,22 @@ message() {
 
 k3sMasterNode() {
   message "installing k3s master to $K3S_MASTER"
-  ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "curl -sLS https://get.k3s.io | INSTALL_K3S_EXEC='server --tls-san $K3S_MASTER --no-deploy servicelb --no-deploy traefik' INSTALL_K3S_VERSION='v0.8.1' sh -"
-  ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/server: https:\/\/localhost:6443/server: https:\/\/$K3S_MASTER:6443/'" > "$REPO_ROOT/setup/kubeconfig"
+  ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "curl -sLS https://get.k3s.io | INSTALL_K3S_EXEC='server --tls-san $K3S_MASTER --no-deploy servicelb --no-deploy traefik' INSTALL_K3S_VERSION='$K3S_VERSION' sh -"
+  ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "sudo cat /etc/rancher/k3s/k3s.yaml | sed 's/server: https:\/\/127.0.0.1:6443/server: https:\/\/$K3S_MASTER:6443/'" > "$REPO_ROOT/setup/kubeconfig"
   NODE_TOKEN=$(ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "sudo cat /var/lib/rancher/k3s/server/node-token")
 }
 
 ks3amd64WorkerNodes() {
   for node in $K3S_WORKERS_AMD64; do
     message "joining amd64 $node to $K3S_MASTER"
-    ssh -o "StrictHostKeyChecking=no" ubuntu@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN INSTALL_K3S_VERSION='v0.8.1' sh -s -"
+    ssh -o "StrictHostKeyChecking=no" ubuntu@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN INSTALL_K3S_VERSION='$K3S_VERSION' sh -s -"
   done
 }
 
 ks3armWorkerNodes() {
   for node in $K3S_WORKERS_RPI; do
     message "joining pi4 $node to $K3S_MASTER"
-    ssh -o "StrictHostKeyChecking=no" pi@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN INSTALL_K3S_VERSION='v0.8.1' sh -s - --node-taint arm=true:NoExecute --data-dir /mnt/usb/var/lib/rancher"
+    ssh -o "StrictHostKeyChecking=no" pi@"$node" "curl -sfL https://get.k3s.io | K3S_URL=https://k3s-0:6443 K3S_TOKEN=$NODE_TOKEN INSTALL_K3S_VERSION='$K3S_VERSION' sh -s - --node-taint arm=true:NoExecute --data-dir /mnt/usb/var/lib/rancher"
   done
 }
 
