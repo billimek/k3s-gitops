@@ -107,6 +107,14 @@ installManualObjects(){
     sleep 5
   done
   kapply "$REPO_ROOT"/kube-system/cert-manager/cert-manager-letsencrypt.txt
+
+  ###################
+  # nginx-external
+  ###################
+  for i in "$REPO_ROOT"/kube-system/nginx/nginx-external/*.txt
+  do
+    kapply "$i"
+  done
 }
 
 k3sMasterNode
