@@ -1,0 +1,15 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: rook-ceph
+  chart:
+    repository: https://charts.rook.io/release
+    name: rook-release/rook-ceph
+    version: 1.1.1
+    
