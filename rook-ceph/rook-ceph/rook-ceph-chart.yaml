@@ -12,3 +12,6 @@ spec:
     repository: https://charts.rook.io/release
     name: rook-ceph
     version: v1.1.1
+  values:
+    csi:
+      kubeletDirPath: /var/lib/rancher/k3s/agent/kubelet
