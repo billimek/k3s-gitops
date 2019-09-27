@@ -39,7 +39,7 @@ spec:
         enabled: true
         claimName: nfs-media-pvc
       config:
-        # storageClass: "rbd"
+        storageClass: "rook-cephfs"
         accessMode: ReadWriteOnce
     # resources:
     #   limits:
