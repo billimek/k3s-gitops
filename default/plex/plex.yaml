@@ -8,7 +8,7 @@ metadata:
     flux.weave.works/automated: "true"
     flux.weave.works/tag.chart-image: 'regexp:^(1\.[0-9]+\.[0-9]+\.[0-9]+-.*)$'
 spec:
-  releaseName: kube-plex
+  releaseName: plex
   chart:
     git: https://github.com/munnerz/kube-plex
     ref: master
