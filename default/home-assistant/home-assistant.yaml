@@ -22,7 +22,7 @@ spec:
       enabled: true
       accessMode: ReadWriteOnce
       size: 10Gi
-      # storageClass: rbd
+      storageClass: "rook-cephfs"
     ingress:
       enabled: true
       annotations:
@@ -74,7 +74,7 @@ spec:
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
-      storageClass: "rook-cephfs"
+      # storageClass: "rook-cephfs"
     metrics:
       enabled: true
       serviceMonitor:
