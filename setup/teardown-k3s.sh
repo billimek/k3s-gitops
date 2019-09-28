@@ -29,8 +29,10 @@ message "Deleting all pods & pvcs"
 for ns in $(kubectl get ns --field-selector="status.phase==Active" --no-headers -o "custom-columns=:metadata.name"); do
   kubectl delete namespace "$ns" --wait=false
 done
-kubectl -n default delete deployments,statefulsets,daemonsets,pvc --all
-kubectl -n kube-system delete statefulsets,daemonsets,pvc --all
+kubectl -n default delete deployments,statefulsets,daemonsets --force --grace-period=0 --all
+kubectl -n kube-system delete statefulsets,daemonsets --force --grace-period=0 --all
+kubectl -n default delete pvc --all
+kubectl -n kube-system delete pvc --all
 sleep 10
 kubectl -n kube-system delete deployments --all
 
