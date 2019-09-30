@@ -50,7 +50,7 @@ installHelm() {
   kubectl create clusterrolebinding tiller-cluster-rule \
       --clusterrole=cluster-admin \
       --serviceaccount=kube-system:tiller
-  helm init --wait --service-account tiller
+  helm init --upgrade --wait --service-account tiller
 
   HELM_SUCCESS="$?"
   if [ "$HELM_SUCCESS" != 0 ]; then
@@ -115,6 +115,16 @@ installManualObjects(){
   do
     kapply "$i"
   done
+
+  ###################
+  # velero
+  ###################
+  kapply "$REPO_ROOT"/velero/old-backup-location/backupstoragelocation.txt
+
+  ###################
+  # rook
+  ###################
+  kapply "$REPO_ROOT"/rook-ceph/dashboard/ingress.txt
 }
 
 k3sMasterNode

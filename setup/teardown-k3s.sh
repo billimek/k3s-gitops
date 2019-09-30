@@ -31,8 +31,8 @@ for ns in $(kubectl get ns --field-selector="status.phase==Active" --no-headers 
 done
 kubectl -n default delete deployments,statefulsets,daemonsets --force --grace-period=0 --all
 kubectl -n kube-system delete statefulsets,daemonsets --force --grace-period=0 --all
-kubectl -n default delete pvc --all
-kubectl -n kube-system delete pvc --all
+# kubectl -n default delete pvc --force --grace-period=0 --all
+# kubectl -n kube-system delete pvc --force --grace-period=0 --all
 sleep 10
 kubectl -n kube-system delete deployments --all
 
@@ -45,11 +45,11 @@ done
 # amd64 worker nodes
 for node in $K3S_WORKERS_AMD64; do
   message "tearing-down amd64 $node"
-  ssh -o "StrictHostKeyChecking=no" ubuntu@"$node" "k3s-agent-uninstall.sh"
+  ssh -o "StrictHostKeyChecking=no" ubuntu@"$node" "k3s-agent-uninstall.sh && sudo rm -rf /var/lib/rook"
 done
 
 # k3s master node
 message "removing k3s from $K3S_MASTER"
-ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "/usr/local/bin/k3s-uninstall.sh"
+ssh -o "StrictHostKeyChecking=no" ubuntu@"$K3S_MASTER" "/usr/local/bin/k3s-uninstall.sh && sudo rm -rf /var/lib/rook"
 
 message "all done - everything is removed!"
