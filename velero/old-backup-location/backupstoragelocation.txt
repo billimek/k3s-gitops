@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: old-cluster
+  namespace: velero
+spec:
+  provider: aws
+  objectStorage:
+    bucket: velero
+  accessMode: ReadOnly
+  config:
+    region: us-east-1
+    profile: "default"
+    s3ForcePathStyle: "true"
+    s3Url: https://minio.$OLD_DOMAIN
