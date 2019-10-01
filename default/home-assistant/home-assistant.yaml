@@ -20,7 +20,7 @@ spec:
       tag: 0.99.3
     persistence:
       enabled: true
-      accessMode: ReadWriteOnce
+      # accessMode: ReadWriteOnce
       size: 10Gi
       storageClass: "rook-cephfs"
     ingress:

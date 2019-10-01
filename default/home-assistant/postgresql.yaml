@@ -27,7 +27,7 @@ spec:
       numSynchronousReplicas: 1
     persistence:
       enabled: true
-      accessMode: ReadWriteOnce
+      #accessMode: ReadWriteOnce
       storageClass: "rook-cephfs"
     metrics:
       enabled: true
