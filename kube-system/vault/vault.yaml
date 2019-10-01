@@ -25,6 +25,10 @@ spec:
         limits:
           memory: 256Mi
           cpu: 250m
+      dataStorage:
+        enabled: true
+        size: 10Gi
+        storageClass: rook-cephfs
       standalone:
         enabled: "true"
         config: |
