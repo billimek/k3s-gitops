@@ -34,6 +34,6 @@ spec:
       serviceMonitor:
         enabled: true
     volumePermissions:
-      enabled: false
+      enabled: true
   valueFileSecrets:
   - name: "hass-postgresql-helm-values"
