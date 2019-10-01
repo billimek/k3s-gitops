@@ -39,6 +39,6 @@ spec:
         metallb.universe.tf/allow-shared-ip: pihole-svc
     persistentVolumeClaim:
       enabled: true
-      storageClass: "nfs-client"
+      storageClass: "rook-cephfs"
   valueFileSecrets:
   - name: "pihole-helm-values"
