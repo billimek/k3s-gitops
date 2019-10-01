@@ -28,7 +28,7 @@ spec:
       dataStorage:
         enabled: true
         size: 10Gi
-        storageClass: rook-cephfs
+        storageClass: nfs-client
       standalone:
         enabled: "true"
         config: |
