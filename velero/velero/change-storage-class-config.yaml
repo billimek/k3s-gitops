@@ -20,4 +20,4 @@ data:
   # add 1+ key-value pairs here, where the key is the old
   # storage class name and the value is the new storage
   # class name.
-  rbd: nfs-client
+  rbd: cephfs
