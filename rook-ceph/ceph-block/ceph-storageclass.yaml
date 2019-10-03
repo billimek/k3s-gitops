@@ -22,5 +22,7 @@ parameters:
     csi.storage.k8s.io/node-stage-secret-name: rook-ceph-csi
     csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
 
+    csi.storage.k8s.io/fstype: ext4
+
 # Delete the rbd volume when a PVC is deleted
 reclaimPolicy: Delete
