@@ -20,9 +20,9 @@ spec:
       tag: 5.11.47
     persistence:
       enabled: true
-      accessMode: ReadWriteOnce
+      # accessMode: ReadWriteOnce
       size: 20Gi
-      storageClass: nfs-client
+      storageClass: rook-cephfs
     timezone: "America/New_York"
     runAsRoot: false
     ingress:
