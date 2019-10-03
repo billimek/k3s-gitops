@@ -28,7 +28,7 @@ spec:
     persistence:
       enabled: true
       #accessMode: ReadWriteOnce
-      storageClass: "rook-cephfs"
+      storageClass: "rook-ceph-block"
     metrics:
       enabled: true
       serviceMonitor:
