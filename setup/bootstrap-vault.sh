@@ -165,6 +165,7 @@ loadSecretsToVault() {
   kvault "default/minio/minio-helm-values.txt"
   kvault "default/plex/plex-helm-values.txt"
   kvault "default/pihole/pihole-helm-values.txt"
+  kvault "default/unifi/unifi-helm-values.txt"
   kvault "velero/velero/velero-helm-values.txt"
 }
 

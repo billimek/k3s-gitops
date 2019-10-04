@@ -80,55 +80,6 @@ installFlux() {
   "$REPO_ROOT"/setup/add-repo-key.sh "$FLUX_KEY"
 }
 
-kapply() {
-  if output=$(envsubst < "$@"); then
-    printf '%s' "$output" | kubectl apply -f -
-  fi
-}
-
-installManualObjects(){
-  . "$REPO_ROOT"/setup/.env
-
-  message "installing manual secrets and objects"
-
-  ##########
-  # secrets
-  ##########
-  kubectl --namespace kube-system delete secret vault > /dev/null 2>&1
-  kubectl --namespace kube-system create secret generic vault --from-literal=vault-unwrap-token="$VAULT_UNSEAL_TOKEN"
-
-  ###################
-  # nginx-external
-  ###################
-  for i in "$REPO_ROOT"/kube-system/nginx/nginx-external/*.txt
-  do
-    kapply "$i"
-  done
-
-  ###################
-  # velero
-  ###################
-  # kapply "$REPO_ROOT"/velero/old-backup-location/backupstoragelocation.txt
-
-  ###################
-  # rook
-  ###################
-  kapply "$REPO_ROOT"/rook-ceph/dashboard/ingress.txt
-
-  #########################
-  # cert-manager bootstrap
-  #########################
-  CERT_MANAGER_READY=1
-  while [ $CERT_MANAGER_READY != 0 ]; do
-    echo "waiting for cert-manager to be fully ready..."
-    kubectl -n kube-system wait --for condition=Available deployment/cert-manager > /dev/null 2>&1
-    CERT_MANAGER_READY="$?"
-    sleep 5
-  done
-  kapply "$REPO_ROOT"/kube-system/cert-manager/cert-manager-letsencrypt.txt
-
-}
-
 k3sMasterNode
 ks3amd64WorkerNodes
 ks3armWorkerNodes
@@ -136,7 +87,7 @@ ks3armWorkerNodes
 export KUBECONFIG="$REPO_ROOT/setup/kubeconfig"
 installHelm
 installFlux
-installManualObjects
+"$REPO_ROOT"/setup/bootstrap-objects.sh
 
 # bootstrap vault
 "$REPO_ROOT"/setup/bootstrap-vault.sh
