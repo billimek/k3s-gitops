@@ -5,6 +5,7 @@ metadata:
   name: minio
   namespace: default
   annotations:
+    fluxcd.io/ignore: false
     flux.weave.works/automated: "true"
     flux.weave.works/tag.chart-image: glob:RELEASE.*
 spec:

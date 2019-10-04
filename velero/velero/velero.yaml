@@ -5,6 +5,7 @@ metadata:
   name: velero
   namespace: velero
   annotations:
+    fluxcd.io/ignore: false
     flux.weave.works/automated: "true"
     flux.weave.works/tag.chart-image: semver:~v1
 spec:

@@ -5,6 +5,7 @@ metadata:
   name: prometheus-operator
   namespace: monitoring
   annotations:
+    fluxcd.io/ignore: false
     flux.weave.works/automated: "true"
     flux.weave.works/tag.grafana: semver:~6
 spec:
