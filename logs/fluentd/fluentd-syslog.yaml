@@ -32,6 +32,7 @@ spec:
         containerPort: 5140
     persistence:
       enabled: true
+      storageClass: "rook-cephfs"
     configMaps:
       general.conf: |
         # Prevent fluentd from handling records containing its own logs. Otherwise

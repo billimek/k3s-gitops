@@ -6,8 +6,10 @@ See [setup/README.md](setup/README.md) for more details.
 
 ## Workloads (by namespace)
 
+* [default](default/)
 * [flux](flux/)
 * [kube-system](kube-system/)
-* [monitoring](monitoring/)
 * [logs](logs/)
-* [default](default/)
+* [monitoring](monitoring/)
+* [rook-ceph](rook-ceph/)
+* [velero](velero/)

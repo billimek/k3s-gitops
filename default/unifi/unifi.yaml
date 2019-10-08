@@ -22,7 +22,6 @@ spec:
       tag: 5.11.47
     persistence:
       enabled: true
-      # accessMode: ReadWriteOnce
       size: 20Gi
       storageClass: rook-cephfs
     timezone: "America/New_York"

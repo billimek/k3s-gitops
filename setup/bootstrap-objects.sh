@@ -40,11 +40,6 @@ installManualObjects(){
   done
 
   ###################
-  # velero
-  ###################
-  # kapply "$REPO_ROOT"/velero/old-backup-location/backupstoragelocation.txt
-
-  ###################
   # rook
   ###################
   ROOK_NAMESPACE_READY=1
