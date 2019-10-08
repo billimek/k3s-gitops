@@ -5,7 +5,7 @@ metadata:
   name: rabbitmq-ha
   namespace: default
   annotations:
-    fluxcd.io/ignore: false
+    fluxcd.io/ignore: true
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: 'regexp:^(3\.[0-9]+\.[0-9]+-alpine)$'
 spec:
@@ -24,7 +24,7 @@ spec:
       enabled: true
     service:
       clusterIP: ""
-      loadBalancerIP: "10.2.0.202"
+      loadBalancerIP: "10.2.0.102"
       type: LoadBalancer
     persistentVolume:
       enabled: false
