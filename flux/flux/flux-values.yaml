@@ -1,6 +1,5 @@
 helmOperator:
-  create: true
-  createCRD: true
+  create: false
 git:
   url: "git@github.com:billimek/k3s-gitops"
 registry:

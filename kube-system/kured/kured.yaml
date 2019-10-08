@@ -1,11 +1,11 @@
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: kured
   namespace: kube-system
   annotations:
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: semver:~1
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:~1
 spec:
   releaseName: kured
   chart:
@@ -22,13 +22,13 @@ spec:
   valueFileSecrets:
   - name: "kured-helm-values"
 ---
-# apiVersion: flux.weave.works/v1beta1
+# apiVersion: fluxcd.io/v1beta1
 # kind: HelmRelease
 # metadata:
 #   name: kured-arm
 #   namespace: kube-system
 #   annotations:
-#     flux.weave.works/automated: "false"
+#     fluxcd.io/automated: "false"
 # spec:
 #   releaseName: kured-arm
 #   chart:

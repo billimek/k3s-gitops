@@ -1,5 +1,5 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: comcast
@@ -8,6 +8,8 @@ metadata:
     fluxcd.io/ignore: true
 spec:
   releaseName: comcast
+  rollback:
+    enable: true
   chart:
     repository: https://billimek.com/billimek-charts/
     name: comcast

@@ -1,14 +1,14 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: loki
   namespace: logs
   annotations:
     fluxcd.io/ignore: true
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.loki: semver:~v0
-    flux.weave.works/tag.promtail: semver:~v0
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.loki: semver:~v0
+    fluxcd.io/tag.promtail: semver:~v0
 spec:
   releaseName: loki
   chart:

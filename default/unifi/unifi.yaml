@@ -1,15 +1,17 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: unifi
   namespace: default
   annotations:
     fluxcd.io/ignore: false
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: 'regexp:^(5\.[0-9][0-9]\.[0-9]+)$'
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: 'regexp:^(5\.[0-9][0-9]\.[0-9]+)$'
 spec:
   releaseName: unifi
+  rollback:
+    enable: true
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: unifi
