@@ -39,12 +39,12 @@ spec:
       image:
         repository: grafana/grafana
         tag: 6.4.1
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
+      # tolerations:
+      # - key: "arm"
+      #   operator: "Exists"
       persistence:
         enabled: true
-        storageClassName: "nfs-client"
+        storageClassName: "rook-cephfs"
         size: 10Gi
       env:
         GF_EXPLORE_ENABLED: true
