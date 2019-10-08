@@ -5,8 +5,8 @@ metadata:
   name: hubot
   namespace: default
   annotations:
-    # fluxcd.io/automated: "true"
-    # fluxcd.io/tag.chart-image: glob:latest
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:~3
 spec:
   releaseName: hubot
   rollback:
@@ -14,12 +14,11 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: hubot
-    version: 0.0.2
+    version: 1.0.0
   values:
     image:
-      repository: billimek/hubot
-      tag: latest
-      pullPolicy: Always
+      repository: minddocdev/hubot
+      tag: 3.3.1
     hubot:
       config:
         HUBOT_GRAFANA_S3_STYLE: 'path'
