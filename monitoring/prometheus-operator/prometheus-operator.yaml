@@ -1,13 +1,13 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: prometheus-operator
   namespace: monitoring
   annotations:
     fluxcd.io/ignore: false
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.grafana: semver:~6
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.grafana: semver:~6
 spec:
   releaseName: prometheus-operator
   chart:

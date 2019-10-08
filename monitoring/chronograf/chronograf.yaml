@@ -1,15 +1,17 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: chronograf
   namespace: monitoring
   annotations:
     fluxcd.io/ignore: true
-    flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: semver:~1.7
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:~1.7
 spec:
   releaseName: chronograf
+  rollback:
+    enable: true
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: chronograf
