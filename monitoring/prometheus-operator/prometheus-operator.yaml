@@ -35,21 +35,16 @@ spec:
           kubernetes.io/ingress.class: "nginx"
           nginx.ingress.kubernetes.io/auth-type: "basic"
           nginx.ingress.kubernetes.io/auth-secret: "nginx-basic-auth-jeff"
-          # ingress.kubernetes.io/auth-trust-headers: "true"
     grafana:
       image:
         repository: grafana/grafana
         tag: 6.4.1
-      # deploymentStrategy:
-      #   type: Recreate
-      # tolerations:
-      # - key: "arm"
-      #   operator: "Exists"
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
       persistence:
         enabled: true
-        storageClassName: "rook-cephfs"
-        # accessModes:
-        # - ReadWriteOnce
+        storageClassName: "nfs-client"
         size: 10Gi
       env:
         GF_EXPLORE_ENABLED: true
@@ -84,6 +79,21 @@ spec:
             datasource: Prometheus
           ceph-pools:
             url: https://grafana.com/api/dashboards/5342/revisions/3/download
+            datasource: Prometheus
+          cable-modem-stats:
+            url: https://raw.githubusercontent.com/billimek/k3s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/cable_modem_stats.json
+            datasource: influxdb
+          comcast-sucks:
+            url: https://raw.githubusercontent.com/billimek/k3s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/comcast_sucks.json
+            datasource: influxdb
+          home-assistant:
+            url: https://raw.githubusercontent.com/billimek/k3s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/home_assistant.json
+            datasource: influxdb
+          ups:
+            url: https://raw.githubusercontent.com/billimek/k3s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/ups.json
+            datasource: influxdb
+          netdata:
+            url: https://raw.githubusercontent.com/billimek/k3s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/netdata.json
             datasource: Prometheus
       additionalDataSources:
       - name: loki
