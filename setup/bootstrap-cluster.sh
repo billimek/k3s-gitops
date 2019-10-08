@@ -32,9 +32,9 @@ k3sMasterNode() {
 }
 
 ks3amd64WorkerNodes() {
-  EXTRA_ARGS=""
   for node in $K3S_WORKERS_AMD64; do
     message "joining amd64 $node to $K3S_MASTER"
+    EXTRA_ARGS=""
     if [ "$node" == "k3s-1" ]; then
       EXTRA_ARGS="--node-label app=intel-gpu-plugin"
     fi
