@@ -23,7 +23,7 @@ spec:
       persistence:
         enabled: true
         size: 50Gi
-        storageClassName: rook-cephfs
+        storageClassName: nfs-client
       serviceMonitor:
         enabled: true
       tolerations:
