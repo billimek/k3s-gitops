@@ -47,7 +47,7 @@ spec:
         storageClassName: "rook-ceph-block"
         size: 10Gi
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
       env:
         GF_EXPLORE_ENABLED: true
       ingress:
