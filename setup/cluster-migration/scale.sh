@@ -5,7 +5,7 @@
 SOURCE_DEPLOYMENTS_TO_SCALE="hass-home-assistant mc-minecraft mcsv-minecraft node-red plex-kube-plex radarr rtorrent-flood sonarr unifi"
 DEST_DEPLOYMENTS_TO_SCALE="home-assistant mc-minecraft mcsv-minecraft node-red plex-kube-plex radarr rtorrent-flood sonarr unifi"
 
-# scale-down source things
+#### scale-down source things
 export KUBECONFIG=$HOME/.kube/config
 for deployment in $SOURCE_DEPLOYMENTS_TO_SCALE
 do
@@ -16,7 +16,7 @@ kubectl -n monitoring scale deployment influxdb --replicas=0
 kubectl -n monitoring scale deployment prometheus-operator-grafana --replicas=0
 
 
-# scale-down destination things
+#### scale-down destination things
 export KUBECONFIG=/home/jeff/src/k3s-gitops/setup/kubeconfig
 for deployment in $DEST_DEPLOYMENTS_TO_SCALE
 do

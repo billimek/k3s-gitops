@@ -9,39 +9,40 @@
 #   4. (HIGHLY RECCOMENDED) source and destination workloads are scaled-to-zero prior to running this
 
 PVCS_TO_BACKUP="home-assistant mc-minecraft-datadir mcsv-minecraft-datadir node-red kube-plex-config radarr-config rtorrent-flood-config sonarr-config unifi influxdb prometheus-operator-grafana"
+
 PVCS_TO_RESTORE="home-assistant mc-minecraft-datadir mcsv-minecraft-datadir kube-plex-config radarr-config rtorrent-flood-config sonarr-config unifi prometheus-operator-grafana"
 PVCS_TO_RESTORE_NFS="node-red influxdb"
 
-ssh root@proxmox mkdir -p /tmp/rbd
-# backup the stuff from (external) ceph rbd
+#### backup the stuff from (external) ceph rbd
 export KUBECONFIG=/home/jeff/.kube/config
+ssh root@proxmox mkdir -p /tmp/rbd
 for pvc in $PVCS_TO_BACKUP
 do
   PV=$(kubectl get pv | grep "$pvc" | awk '{print $1}')
   RBDIMAGE=$(kubectl describe pv "$PV" | grep RBDImage | awk '{print $2}')
   echo "Backing up $pvc ($RBDIMAGE) to proxmox:/tank/backups/cluster/$pvc"
-  ssh root@proxmox "rm -rf /tank/backups/cluster/$pvc && rbd map kube/$RBDIMAGE && mount /dev/rbd0 /tmp/rbd && cp -a /tmp/rbd /tank/backups/cluster/$pvc; umount /tmp/rbd && rbd unmap /dev/rbd0"
+  ssh root@proxmox "rm -rf /tank/backups/cluster/$pvc && rbd map kube/$RBDIMAGE && mount /dev/rbd0 /tmp/rbd && cd /tmp/rbd && tar cfz /tank/backups/cluster/${pvc}.tar.gz .; cd /tmp && umount /tmp/rbd && rbd unmap /dev/rbd0"
 done
 
-# restore the stuff to cephfs
+#### restore the stuff to cephfs
 export KUBECONFIG=/home/jeff/src/k3s-gitops/setup/kubeconfig
 for pvc in $PVCS_TO_RESTORE
 do
   PV=$(kubectl get pv --all-namespaces | grep "$pvc" | awk '{print $1}')
   CEPHFS_THING=$(kubectl describe pv "$PV" | grep VolumeHandle | awk '{print $2}' | sed 's/[0-9]*-[0-9]*-rook-ceph-[0-9]*-\(.*\)/\1/g')
   TOOLBOX_PATH="/tmp/registry/volumes/csi/csi-vol-$CEPHFS_THING"
-  echo "===== Restoring $pvc ($CEPHFS_THING) from proxmox:/tank/backups/cluster/$pvc"
+  echo "===== Restoring $pvc ($CEPHFS_THING) from proxmox:/tank/backups/cluster/${pvc}.tar.gz"
   tools="$(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}')"
   echo "     ----- deleting contents of $TOOLBOX_PATH in the toolbox pod"
   kubectl -n rook-ceph exec -it "$tools" -- sh -c "rm -rf $TOOLBOX_PATH/{*,.*} 2> /dev/null"
-  echo "     ----- copying /mnt/backups/cluster/$pvc to $tools:/tmp/"
-  kubectl -n rook-ceph cp /mnt/backups/cluster/"$pvc" "$tools":/tmp/
-  echo "     ----- moving /tmp/$pvc to $TOOLBOX_PATH/"
-  kubectl -n rook-ceph exec -it "$tools" -- sh -c "mv /tmp/$pvc/{*,.*} $TOOLBOX_PATH/ 2> /dev/null"
-  kubectl -n rook-ceph exec -it "$tools" -- sh -c "rmdir /tmp/$pvc"
+  echo "     ----- copying /mnt/backups/cluster/${pvc}.tar.gz to $tools:/tmp/"
+  kubectl -n rook-ceph cp /mnt/backups/cluster/"${pvc}.tar.gz" "$tools":/tmp/
+  echo "     ----- untarring /tmp/${pvc}.tar.gz to $TOOLBOX_PATH/"
+  kubectl -n rook-ceph exec -it "$tools" -- sh -c "cd $TOOLBOX_PATH/ && tar zxf /tmp/${pvc}.tar.gz && cd /tmp"
+  kubectl -n rook-ceph exec -it "$tools" -- sh -c "rm /tmp/${pvc}.tar.gz"
 done
 
-# restore the stuff to nfs-client
+#### restore the stuff to nfs-client
 for pvc in $PVCS_TO_RESTORE_NFS
 do
   PV=$(kubectl get pv --all-namespaces | grep "$pvc" | awk '{print $1}')
