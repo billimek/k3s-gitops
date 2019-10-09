@@ -9,8 +9,8 @@
 #   4. (HIGHLY RECCOMENDED) source and destination workloads are scaled-to-zero prior to running this
 
 PVCS_TO_BACKUP="home-assistant mc-minecraft-datadir mcsv-minecraft-datadir node-red kube-plex-config radarr-config rtorrent-flood-config sonarr-config unifi influxdb prometheus-operator-grafana"
-PVCS_TO_RESTORE="home-assistant mc-minecraft-datadir mcsv-minecraft-datadir kube-plex-config radarr-config rtorrent-flood-config sonarr-config unifi"
-PVCS_TO_RESTORE_NFS="node-red influxdb prometheus-operator-grafana"
+PVCS_TO_RESTORE="home-assistant mc-minecraft-datadir mcsv-minecraft-datadir kube-plex-config radarr-config rtorrent-flood-config sonarr-config unifi prometheus-operator-grafana"
+PVCS_TO_RESTORE_NFS="node-red influxdb"
 
 ssh root@proxmox mkdir -p /tmp/rbd
 # backup the stuff from (external) ceph rbd
