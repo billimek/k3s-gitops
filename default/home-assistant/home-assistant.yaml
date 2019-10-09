@@ -23,7 +23,7 @@ spec:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: "rook-cephfs"
+      storageClass: "rook-ceph-block"
     ingress:
       enabled: true
       annotations:

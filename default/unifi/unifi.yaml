@@ -23,7 +23,7 @@ spec:
     persistence:
       enabled: true
       size: 20Gi
-      storageClass: rook-cephfs
+      storageClass: rook-ceph-block
     timezone: "America/New_York"
     runAsRoot: false
     ingress:

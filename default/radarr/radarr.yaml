@@ -27,7 +27,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "rook-cephfs"
+        storageClass: "rook-ceph-block"
       downloads:
         enabled: true
         existingClaim: nfs-media-downloads-pvc

@@ -22,7 +22,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-cephfs
+              storageClassName: rook-ceph-block
               resources:
                 requests:
                   storage: 10Gi
@@ -44,7 +44,7 @@ spec:
       #   operator: "Exists"
       persistence:
         enabled: true
-        storageClassName: "rook-cephfs"
+        storageClassName: "rook-ceph-block"
         size: 10Gi
         accessModes:
           - ReadWriteMany
@@ -168,7 +168,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-cephfs
+              storageClassName: rook-ceph-block
               resources:
                 requests:
                   storage: 100Gi

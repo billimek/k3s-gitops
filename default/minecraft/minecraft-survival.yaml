@@ -19,7 +19,7 @@ spec:
     image: itzg/minecraft-server
     imageTag: latest
     persistence:
-      storageClass: "rook-cephfs"
+      storageClass: "rook-ceph-block"
       dataDir:
         enabled: true
         Size: 10Gi

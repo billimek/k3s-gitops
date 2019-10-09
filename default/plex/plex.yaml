@@ -42,7 +42,8 @@ spec:
         enabled: true
         claimName: nfs-media-pvc
       config:
-        storageClass: "rook-cephfs"
+        storageClass: "rook-ceph-block"
+        accessMode: ReadWriteOnce
     # resources:
     #   limits:
     #     gpu.intel.com/i915: 1

@@ -37,7 +37,7 @@ spec:
       config:
         enabled: true
         size: 1Gi
-        storageClass: rook-cephfs
+        storageClass: rook-ceph-block
       data:
         enabled: true
         existingClaim: nfs-media-downloads-pvc
