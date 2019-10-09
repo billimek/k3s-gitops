@@ -28,4 +28,6 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-name: rook-ceph-csi
   csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
 
+  mounter: kernel
+
 reclaimPolicy: Delete
