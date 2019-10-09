@@ -46,6 +46,8 @@ spec:
         enabled: true
         storageClassName: "rook-cephfs"
         size: 10Gi
+        accessModes:
+          - ReadWriteMany
       env:
         GF_EXPLORE_ENABLED: true
       ingress:
