@@ -28,7 +28,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-          # namespace: monitoring
+          namespace: kube-system
         prometheusRule:
           enabled: false
       # tolerations:
