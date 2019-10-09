@@ -13,6 +13,8 @@ do
   kubectl scale deployment "$deployment" --replicas=0
 done
 kubectl -n monitoring scale deployment influxdb --replicas=0
+kubectl -n monitoring scale deployment prometheus-operator-grafana --replicas=0
+
 
 # scale-down destination things
 export KUBECONFIG=/home/jeff/src/k3s-gitops/setup/kubeconfig
@@ -22,3 +24,4 @@ do
   kubectl scale deployment "$deployment" --replicas=0
 done
 kubectl -n monitoring scale deployment influxdb --replicas=0
+kubectl -n monitoring scale deployment prometheus-operator-grafana --replicas=0
