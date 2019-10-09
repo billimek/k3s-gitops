@@ -38,7 +38,7 @@ spec:
     grafana:
       image:
         repository: grafana/grafana
-        tag: 6.4.1
+        tag: 6.4.2
       # tolerations:
       # - key: "arm"
       #   operator: "Exists"
