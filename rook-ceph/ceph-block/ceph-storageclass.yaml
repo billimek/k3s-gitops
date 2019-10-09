@@ -26,3 +26,5 @@ parameters:
 
 # Delete the rbd volume when a PVC is deleted
 reclaimPolicy: Delete
+
+allowVolumeExpansion: true
