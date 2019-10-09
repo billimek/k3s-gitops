@@ -43,10 +43,10 @@ spec:
         claimName: nfs-media-pvc
       config:
         storageClass: "rook-cephfs"
-    resources:
-      # limits:
-      #   gpu.intel.com/i915: 1
-      requests:
-        gpu.intel.com/i915: 1
+    # resources:
+    #   limits:
+    #     gpu.intel.com/i915: 1
+    #   # requests:
+    #   #   gpu.intel.com/i915: 1
   valueFileSecrets:
   - name: "plex-helm-values"
