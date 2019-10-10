@@ -31,6 +31,8 @@ spec:
     # tolerations:
     # - key: "arm"
     #   operator: "Exists"
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     vscode:
       enabled: true
       image:

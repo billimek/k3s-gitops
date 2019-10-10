@@ -24,6 +24,7 @@ spec:
       replicaCount: 2
       service:
         loadBalancerIP: 10.2.0.210
+        # loadBalancerIP: 10.2.0.150 # <-- k8s
       metrics:
         enabled: true
         serviceMonitor:
