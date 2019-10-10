@@ -2,7 +2,7 @@ apiVersion: ricoberger.de/v1alpha1
 kind: VaultSecret
 metadata:
   name: cloudflare-api-key
-  namespace: kube-system
+  namespace: cert-manager
 spec:
   keys:
     - api-key

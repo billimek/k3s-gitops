@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: cert-manager
-  namespace: kube-system
+  namespace: cert-manager
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: semver:~v0.

@@ -6,6 +6,7 @@ See [setup/README.md](setup/README.md) for more details.
 
 ## Workloads (by namespace)
 
+* [cert-manager](cert-manager/)
 * [default](default/)
 * [flux](flux/)
 * [kube-system](kube-system/)

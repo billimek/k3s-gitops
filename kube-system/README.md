@@ -1,13 +1,3 @@
-# cert-manager
-
-[cert-manager](https://github.com/jetstack/cert-manager) for natively automatically obtaining and renewing LetsEncrypt certificates
-
-* [cert-manager/cert-manager-crds.yaml](cert-manager/cert-manager-crds.yaml)
-* [cert-manager/cert-manager-chart.yaml](cert-manager/cert-manager-chart.yaml)
-* [cert-manager/cert-sync.yaml](cert-manager/cert-sync.yaml)
-* [cert-manager/cert-manager-cloudflare-api-key.yaml](cert-manager/cert-manager-cloudflare-api-key.yaml)
-* [cert-manager/cert-manager-letsencrypt.txt](cert-manager/cert-manager-letsencrypt.txt)
-
 # descheduler
 
 Automatically re-distribute pods based on node resource availability. See [this]( https://github.com/kubernetes-incubator/descheduler) and [this](https://akomljen.com/meet-a-kubernetes-descheduler/)
