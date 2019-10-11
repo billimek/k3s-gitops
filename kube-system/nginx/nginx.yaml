@@ -21,7 +21,7 @@ spec:
       image:
         repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
         tag: "0.25.1"
-      replicaCount: 2
+      replicaCount: 3
       service:
         loadBalancerIP: 10.2.0.210
         # loadBalancerIP: 10.2.0.150 # <-- k8s
