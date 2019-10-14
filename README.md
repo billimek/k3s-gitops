@@ -1,16 +1,3 @@
-# Light-weight mixed-architecture cluster setup with k3s using gitops
+**DEPRECATION:** This repo was used as a testbed to migration from [rke](https://github.com/rancher/rke) to [k3s](https://github.com/rancher/k3s) and now that is done.
 
-## Setup
-
-See [setup/README.md](setup/README.md) for more details.
-
-## Workloads (by namespace)
-
-* [cert-manager](cert-manager/)
-* [default](default/)
-* [flux](flux/)
-* [kube-system](kube-system/)
-* [logs](logs/)
-* [monitoring](monitoring/)
-* [rook-ceph](rook-ceph/)
-* [velero](velero/)
+All of the content from this repo was [merged](https://github.com/billimek/k8s-gitops/pull/76) into the main GitOps repo: [billimek/k8s-gitops](https://github.com/billimek/k8s-gitops)
